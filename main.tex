@@ -1,4 +1,4 @@
-\documentclass[conference]{IEEEtran}
+\documentclass[conference,10pt]{IEEEtran}
 \usepackage{times}
 
 \usepackage[numbers]{natbib}
@@ -14,6 +14,17 @@
 % \captionsetup{width=\linewidth}
 \usepackage{enumitem}
 \usepackage[bookmarks=true]{hyperref}
+\usepackage{xcolor}
+% \usepackage{etoolbox}
+
+\usepackage[indentfirst=false,leftmargin=1cm,font=itshape,font+=small]{quoting}
+
+% \newenvironment{myquote}[1]%
+    % {\setlength{\leftmargini}{#1}\color{blue}\fontfamily{droid}{\quotation}{\endquotation}}
+    % {\list{}{\leftmargin=#1\rightmargin=#1}\item[]}%
+    % {\endlist}
+
+\AtBeginEnvironment{quote}{\fontfamily{droid}\small}
 
 %%%%% shortcut commands
 \newcommand{\famsec}{FaMSeC}
@@ -35,11 +46,13 @@
 \newcommand{\xQ}{$x_Q$} %solver quality
 \newcommand{\xO}{$x_O$} %outcome assessment
 \newcommand{\xP}{$x_P$} %past performance
-\newcommand{\xI}{$x_I$}
-\newcommand{\xM}{$x_M$}
+\newcommand{\xI}{$x_I$} %command interpretation
+\newcommand{\xM}{$x_M$} %model validity
 \newcommand{\xSC}{$x_{SC}$=\{\xI,\xM,\xQ,\xO,\xP \}}
 \newcommand{\dkl}{$D_{KL}$}
 \newcommand{\hell}{$H^2$}
+\newcommand{\hellmet}{\hell(P,Q)}
+\newcommand{\dmu}{\Delta \mu}
 \def\-{\raisebox{.75pt}{-}} %short negative sign
 %%%%%%%%%%
 \newcommand{\hlr}[1]{{\color{red} #1}}
@@ -60,13 +73,14 @@
 
 \begin{document}
 
-\title{Machine Self-Confidence in Autonomous Systems \\ via  Meta-Analysis of Decision Processes}
+\title{The Effects of Machine Self-Confidence on User Behavior and Perception---\brett{Working Title}}
 \author{Author Names Ommitted for Anonymous Review. Paper-ID [add ID here]} 
 
 \maketitle
 
 \begin{abstract}
-    Algorithmic assurances from advanced autonomous systems assist human users in understanding, trusting, and using such systems appropriately. Designing these systems with the capacity of assessing their own capabilities is one approach to creating an algorithmic assurance. The idea of `machine self-confidence' is introduced for autonomous systems. Using a factorization based framework for self-confidence assessment, one component of self-confidence, called `solver-quality', is discussed in the context of Markov decision processes for autonomous systems. Markov decision processes underlie much of the theory of reinforcement learning, and are commonly used for planning and decision making under uncertainty in robotics and autonomous systems. A `solver quality' metric is formally defined in the context of decision making algorithms based on Markov decisions processes. A method for assessing solver quality  is then derived, drawing inspiration from empirical hardness models. Finally, numerical experiments for an unmanned autonomous vehicle navigation problem under different solver, parameter, and environment conditions indicate that the self-confidence metric exhibits the desired properties. Discussion of results, and avenues for future investigation are included.
+    \brett{Revisit this}
+    It is difficult for users to comprehend the capabilities and limitations of advanced robotic systems. In some cases, these limitations are not even known or quantified. Designers and users who aren't aware of the limitations of the autonomous robot they are using are likely to use it inappropriately. Machine Self-Confidence is the ability for a machine to quantify its competency boundaries; once known they can be communicated to interested humans (users or designers). Herein, two assessments of robot capability are presented: `Outcome Assessment' and `Solver Quality'. Results from an Amazon Mechanical Turk experiment meant to investigate their effects on user behavior and perception indicate that the communication of both assessments to human users has a significant impact on behavior and perception.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -79,5 +93,8 @@
 
 \bibliographystyle{plainnat}
 \bibliography{References}
+
+\appendices
+\input{"appendix.tex"}
 
 \end{document}

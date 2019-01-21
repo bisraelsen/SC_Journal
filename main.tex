@@ -16,6 +16,7 @@
 \usepackage[bookmarks=true]{hyperref}
 \usepackage{xcolor}
 % \usepackage{etoolbox}
+\usepackage{algorithmic}
 
 \usepackage[indentfirst=false,leftmargin=1cm,font=itshape,font+=small]{quoting}
 
@@ -51,9 +52,14 @@
 \newcommand{\xSC}{$x_{SC}$=\{\xI,\xM,\xQ,\xO,\xP \}}
 \newcommand{\dkl}{$D_{KL}$}
 \newcommand{\hell}{$H^2$}
-\newcommand{\hellmet}{\hell(P,Q)}
+\newcommand{\hellmet}{$\hell(P,Q)$}
 \newcommand{\dmu}{\Delta \mu}
 \def\-{\raisebox{.75pt}{-}} %short negative sign
+\newcommand{\ri}{R_{\infty}}
+\newcommand{\pri}{$p(\ri)$}
+\newcommand{\ppiri}{$p_{\pi}(\ri)$}
+\newcommand{\tpi}{$\tilde{\pi}$}
+\newcommand{\ppitri}{$p_{\tpi}(\ri)$}
 %%%%%%%%%%
 \newcommand{\hlr}[1]{{\color{red} #1}}
 \newcommand{\hlb}[1]{{\color{blue} #1}}
@@ -86,7 +92,9 @@
 \IEEEpeerreviewmaketitle
 
 \input{"introduction.tex"}
+\input{"background.tex"}
 \input{"FaMSeC.tex"}
+\input{"xQandxO.tex"}
 \input{"methodology.tex"}
 \input{"results.tex"}
 \input{"conclusions.tex"}

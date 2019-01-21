@@ -1,61 +1,57 @@
-\section{Methodology} \label{sec:methodology}
-\subsection{Outcome Assessment}
-talk about outcome assessment here. Show all of the math, talk about the equations in some detail. Refer to Sec. 5.2 for formulation, and 5.3 for evaluation \cite{Aitken2016-cv}
-\subsubsection{UPM/LPM}
+\section{Experiment Methodology} \label{sec:methodology}
+    Here, we present some preliminary findings in an experiment to meant to investigate whether \xQ{} and \xO{} have effects on user behavior and perception. In order to do this we designed an Amazon Mechanical Turk experiment where human users acted as dispatch supervisors of the unmanned delivery truck described in Sec.~\ref{sec:donut_delivery}. They key hypothesis is that users who are presented with self-confidence metrics will perform better in the dispatch task which will be reflected in a higher score (discussed in detail in Sec.~\ref{sec:hyp_sec_meas}).
 
-\begin{align}
-    U(f) &:= \int_{-\infty}^0 v(r)\deriv{}{r}(w(F(r)))dr \\ \nonumber
-    &\quad + \int_{0}^{+\infty}v(r)\deriv{}{r}(-w(1-F(r)))dr
-\end{align}
+    The responsibility of each participant was to decide whether the autonomous delivery vehicle should attempt to make a delivery, or decline the delivery. A successful attempt resulted in +1 point, failure in -1 point, and declining a delivery in -1/4 point. After being trained the participants saw a sequence of 43 different delivery scenarios with varying maps. The experiment was a between-subjects design with 4 conditions. The first condition was the control condition where the users only had the map to use to make decisions. In condition 2 users were presented with \xQ{}, and in condition 3 they were shown \xP{}. In condition 4 users were given both \xQ{} and \xP. A screenshot of a typical task is shows in Fig.~\ref{fig:screenshot}. Based on feedback from a pilot study the numerical values for \xQ{} and \xP{} were subdivided into regions and converted to words such as `very good' or `bad' as detailed in Tab.~\ref{tab:word_ranges} to help users more easily grasp the scales.
 
-\begin{align}
-    UPM/LPM &= \frac{\int_{0}^{+\infty}\tilde{z}\tilde{f}(\tilde{z})d\tilde{z}}{\int_{-\infty}^{0} \tilde{z}\tilde{f}(\tilde{z})d\tilde{z}} \label{eq:upm/lpm} \\
-    \xO{} &= 2/(1+e^{(-k(log(UPM/LPM)))}) - 1 \label{eq:xp}
-\end{align}
+       \begin{figure}[tb]
+            \centering
+            \includegraphics[width=0.8\linewidth]{Figures/experiment_screenshot}
+            \caption{Experiment Screenshot}
+            \label{fig:screenshot}
+        \end{figure}
 
-\subsubsection{Properties}
-\brett{Refer to paper for in-depth properties and behaviors, here probably just put a table with some words about +1/-1 stuff}
+    The total number of participants represented is N=257, with $n=\{63,63,64,65\}$ for conditions 1-4 respectively. The results of two participants were not included because of inability to follow the instructions satisfactorily. Participants were paid a base rate of $\$1.60$ for the Human Intelligence Task (HIT), and were able to get a bonus of up to $\$1.00$ based on their performance. Pilot data indicated that this would be equivalent to approximately \$7-10/hr. In practice the Turkers were quite a bit faster than those in the pilot study, and earned around \$13/hr.
 
-\subsection{Solver Quality}
-\brett{\xQ{} is a bit more complicated than \xO{} to explain, and in derivation, need to spend a little more time, but also defer to \cite{Israelsen2018-qz} for more detail.}
-How, then, can \xQ{} be calculated? Following from discussion in the previous section, a surrogate model \surrogate{} can be learned to predict the reward distribution \rwdstarapprox{} of the trusted reference solver \solvestar{} on task \task{}.
+    \subsubsection{Hypotheses, Conditions, and Measures} \label{sec:hyp_cond_meas}
+    \paragraph{Experiment Variables:}
+    The two \famsec{} metrics discussed herein are the experimental variables in this situation, each will be either `present' or `absent'. Therefore this study is a 2(\xQ) $\times$ 2(\xO) design, resulting in 4 conditions:
 
-The candidate solver \solve{} must then be evaluated w.r.t. the trusted solver \solvestar{}. This is done by comparing \rwdstarapprox{} (the predicted performance of \solvestar{} on task \task) and \rwd{} (the simulated performance of solver \solve{} on task \task).
+    \begin{enumerate}[label=\textbf{C\arabic*}]
+        \item (Control): The participant will make decisions based solely on information provided by the visualization of the task. They will still receive feedback about success/failure. \label{itm:C1}
+        \item The participant will make decisions on the same tasks as in the control, but with \xQ{} displayed as well.\label{itm:C2}
+        \item The participant will make decisions on the same tasks as in the control, but with \xO{} as well. \label{itm:C3}
+        \item The participant will make decisions on the same tasks as in the control, but with both \xQ{}, and \xO{} displayed simultaneously. \label{itm:C4}
+    \end{enumerate}
 
-Figure \ref{fig:sq_v2} illustrates some of the key quantities involved in calculating \xQ. The basic premise is: \emph{find the difference between the trusted ($T$) and candidate ($C$) solvers while taking into account the overall range of rewards of the trusted solver over many tasks}.
+    The experiment was designed to investigate five main hypotheses. Generally, the overarching hypotheses is that \xQ{} and \xO{} have significant effects on user behavior and perception when presented, as opposed to when they are not. Given other similar work in the area of trust between humans and technology (surveyed in \cite{Israelsen2017-ym}) there is reason to believe that this is the case.
 
-\subsubsection{Calculating \texorpdfstring{\xQ}{xQ}}
-   \begin{figure}[tb]
-        \centering
-        \includegraphics[width=0.9\linewidth]{Figures/sq_v2_fig-crop}
-        \caption{Key values involved in calculating \xQ, where $x$ represents a `parameter of interest' for task \task, or solver \solve.}
-        \label{fig:sq_v2}
-        \vspace{-0.2cm}
-    \end{figure}
-The main aim of \xQ{} is to indicate how a solver \solve{} will perform on a given (possibly un-encountered) task \task{} of a given class \taskclass{} (i.e. all road networks with a UGV, Pursuer, and exit, et cetera as described previously). The need for \xQ{} is not necessarily easy to understand; an analogy helps to clarify:
+    \begin{enumerate}[label=\textbf{H\arabic*}]
+        \item Use of either, or both, FaMSeC metrics (\xQ{} and \xO{}) improves performance of the user-autonomy team on the experimental task when compared to control condition. (i.e. presence of FaMSeC metrics will affect the TRBs of human users) \label{itm:H1}
+        \item Users who are presented with FaMSeC metrics will rate trust of autonomous system more highly than in control condition. (i.e. presence of FaMSeC metrics will affect the self-reported trust of human users) \label{itm:H2}
+        \item Users who are presented with FaMSeC metrics will make decisions about delegation more quickly than those in control condition. (i.e. the presence of FaMSeC will help the user offload some of their workload onto the autonomous system) \label{itm:H3}
+        \item Users not in the control condition will rate the ‘quality’ of the AS higher than those in the control \label{itm:H4}
+        \item Users not in the control condition will be more willing to work with the system again. \label{itm:H5}
+    \end{enumerate}
 
-\emph{Clarifying Example:} One could informally think of \xQ{} as an indication of the \emph{ability} of an athlete. This is opposed to the athlete's assessment of the desirability of the outcome of a game (\xO). While an athlete may be very capable (high \xQ), the score of the game may be such that the athlete knows that it is nearly impossible to catch up and win the game (low \xO). Conversely, an athlete may not be very capable (low \xQ), and due to being na\"{i}ve has an incorrect assessment of the desirability of the outcome (\xO{} cannot be trusted).
+    \paragraph{Measures:}
+    The following measurements were gathered for each participant.
+    \begin{enumerate}[label=\textbf{M\arabic*}]
+        \item Score---cumulative score of user during experimental tasks. Used for \ref{itm:H1}
+        \item Questionnaire Responses---Likert scale responses to survey questions. Used for \ref{itm:H2},\ref{itm:H4}, and \ref{itm:H5}
+        \item Average time per task---average time for user to make decision during experimental tasks. Used for \ref{itm:H3}
+    \end{enumerate}
 
-In order to compare two solvers the resultant reward distributions that each of those solvers produce are compared. If two solvers produce an identical reward distribution \emph{for a given task}, then they can be considered equal in their `quality', or considered equally `capable'. Conversely, if the two distributions are very different \emph{for the same task}, then their quality, or capability, is also different. \brett{again\ldots refer to \cite{Israelsen2018-qz} for more detail}.
-
-\paragraph{Hellinger Metric \texorpdfstring{$\bm{\hell}$}{H^2}} \label{sec:hellinger}
-The \emph{Hellinger Metric}, \hell{},  is a measure of the distance between two distributions. It is bounded between 0 and 1, where 0 means the distributions are identical. The maximum distance, 1, is achieved when one distribution $P$ assigns zero probability at every point in which another distribution $Q$ assigns probability. \hell{} has different forms based on the type of analytical distributions being compared. For the purposes of calculating \xQ{} from two distributions $P \sim (\mu_1,\sigma_1)$ and $Q\sim(\mu_2,\sigma_2)$ the following form is useful:
-\begin{align}
-    \hellmet = 1-\sqrt{\frac{2\sigma_P\sigma_Q}{\sigma_P^2+\sigma_Q^2}}\exp{\left(-\frac{1}{4}\frac{(\mu_P-\mu_Q)^2}{\sigma_P^2+\sigma_Q^2}\right)}
-\end{align}
-
-Using \hell{} the overlap between $T$ and $C$ can be calculated. The sing of the difference is accounted for by \dmu.
-
-\begin{align}
-    \text{q} &= \text{sgn}(\Delta \mu)f^{\alpha}\sqrt{H^{2}(T,C)} \label{eq:q} \\
-    x_{Q} &= \frac{2}{1+exp(-\text{q}/5)}\label{eq:SQ}
-\end{align}
-
-Where $\Delta \mu = \mu_c-\mu_t$, and $f = \Delta \mu/(r_H-r_L)$. The exponent $\alpha$ is a parameter that affects the influence that $f$ has with respect to \hell. In essence, should the relationship of the effects of $f$ and \hell{} be $1:1$? In practice $\alpha=1$ does not yield desirable results. \hell{} should be more influential on $\text{q}$ as $f$ grows smaller, and $f$ should be more influential as it increases. We have found $\alpha=1/2$ gives results that `make sense'; future work could investigate the `best' value for $\alpha$ via user studies.
-
-\paragraph{Properties}
-While \hell{} is on the domain $[0,1]$, the quantity $f$ is $[0,\infty]$. Because of this it is desirable to use a `squashing function' to keep the reported \xQ{} value within some bounded range and avoid arbitrarily large values that can be confusing to humans. The general logistic equation is useful for this.
-The numerator is 2 so that when $q=0$ (distributions are identical) \xQ{} will be 1. Dividing the quantity $q$ by 5 so makes it so that \xQ{} `saturates' at around $\text{q}=\pm1$.
-
-\brett{Reference the ArXiv paper for numerical experiments}
-Several numerical experiments were performed to verify that the Solver Quality metric (\xQ{}) performed as expected in several different situations.
+    \begin{table}[]
+        \caption{Natural Language Prompts Used for Metric Values}
+        \label{tab:word_ranges}
+        \begin{tabular}{cclcc}
+            \multicolumn{2}{c}{\xQ{}} & \vline & \multicolumn{2}{c}{\xO{}} \\
+            Range & Prompt & \vline & Range & Prompt \\
+            \hline
+            $[0.00,0.40]$ & Very Bad & \vline & $[-1.0,-0.5]$ & Very Bad \\
+            $(0.40,0.75]$ & Bad & \vline & $(-0.5,-0.10]$ & Bad \\
+            $(0.75,1.00]$ & Okay & \vline & $(-0.10,0.10]$ & Okay \\
+            $(1.00,1.50]$ & Good & \vline & $(0.10,0.50]$ & Good \\
+            $(1.50,2.00]$ & Very Good & \vline & $(0.50,1.00]$ & Very Good
+        \end{tabular}
+    \end{table}

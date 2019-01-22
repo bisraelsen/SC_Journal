@@ -1,5 +1,6 @@
 \section{Solver Quality and Outcome Assessment}
-    
+\nisar{todo: remove giant whitespaces from eqs. and figs. }  
+
 \subsection{Outcome Assessment Definition and Calculation} \label{sec:xO}
 An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: \xM~$=+1$ (perfectly known problem/task model), \xI~$= +1$ (perfectly interpreted user task command and reward function $R_k$), \xQ~$=+1$ (optimal policy $\pi$ known and available), and \xP~$=+1$ (task encountered previously). Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution \ppiri of achievable cumulative reward values $ $\ri$= \sum_{k=0}^{\infty}R_{k}$ under policy $\pi$.
 
@@ -14,7 +15,7 @@ Along these lines, ref. \cite{Aitken2016-cv} considers several measures of \ppir
 In the Donut Delivery problem, $R^*_{\infty}$ is the reward obtained at a user-specified maximum acceptable time to successfully reach the delivery destination (literally delivering a donut, or anything for that matter, at $t=\infty$ is useless in practical situations). The distribution \ppiri can be empirically estimated from Monte Carlo sample simulations, by applying $\pi$ to the assumed MDP state dynamics model.
 
     \begin{align}
-        \xO &= \frac{2}{\left(1+e^{\left(-k\left(\log\left(\frac{UPM}{LPM}\right)\right)\right)}\right) - 1} \label{eq:xO}
+        $\xO$ &= \frac{2}{\left(1+e^{\left(-k\left(\log\left(\frac{UPM}{LPM}\right)\right)\right)}\right) - 1} \label{eq:xO}
     \end{align}
 
 

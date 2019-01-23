@@ -13,7 +13,7 @@
 % \usepackage[caption=false]{subfig}
 % \captionsetup{width=\linewidth}
 \usepackage{enumitem}
-\usepackage[bookmarks=true]{hyperref}
+\usepackage[bookmarks=true,hidelinks=true]{hyperref}
 \usepackage{xcolor}
 % \usepackage{etoolbox}
 \usepackage{algorithmic}
@@ -29,21 +29,22 @@
 
 %%%%% shortcut commands
 \newcommand{\famsec}{FaMSeC}
-\newcommand{\solve}{$\mathcal{S}$}
-\newcommand{\solvestar}{$\mathcal{S}^*$}
+\newcommand{\solve}{$\mathcal{S}^c$}
+\newcommand{\solvestar}{$\mathcal{S}^t$}
 \newcommand{\taskclass}{$c_{\mathcal{T}}$}
 \newcommand{\task}{$\mathcal{T}$}
 \newcommand{\taski}{$\mathcal{T}_i$}
 \newcommand{\taskN}{$\mathcal{T}_N$}
-\newcommand{\rwd}{$\mathcal{R}$}
-\newcommand{\rwdstar}{$\mathcal{R}^*$}
-\newcommand{\rwdstari}{$\mathcal{R}^*_i$}
-\newcommand{\rwdstarN}{$\mathcal{R}^*_N$}
-\newcommand{\rwdstarapprox}{$\widetilde{\mathcal{R}}^*$}
-\newcommand{\rwdstariapprox}{$\widetilde{\mathcal{R}}^*_i$}
+\newcommand{\rwd}{$\mathcal{R}^c$}
+\newcommand{\rwdstar}{$\mathcal{R}^t$}
+\newcommand{\rwdstari}{$\mathcal{R}^t_i$}
+\newcommand{\rwdstarN}{$\mathcal{R}^t_N$}
+\newcommand{\rwdstarapprox}{$\widetilde{\mathcal{R}}^t$}
+\newcommand{\rwdstariapprox}{$\widetilde{\mathcal{R}}^t_i$}
 \newcommand{\policy}{$\mathcal{\pi}$}
-\newcommand{\policystar}{$\mathcal{\pi}^*$}
-\newcommand{\surrogate}{$\mathcal{M}^*(\mathcal{T})$}
+\newcommand{\policystar}{$\mathcal{\pi}^t$}
+\newcommand{\policyc}{$\mathcal{\pi}^c$}
+\newcommand{\surrogate}{$\mathcal{M}^t(\mathcal{T})$}
 \newcommand{\xQ}{$x_Q$} %solver quality
 \newcommand{\xO}{$x_O$} %outcome assessment
 \newcommand{\xP}{$x_P$} %past performance
@@ -56,10 +57,14 @@
 \newcommand{\dmu}{\Delta \mu}
 \def\-{\raisebox{.75pt}{-}} %short negative sign
 \newcommand{\ri}{$R_{\infty}$}
+\newcommand{\ris}{$R^*_{\infty}$}
 \newcommand{\pri}{$p($\ri$)$}
 \newcommand{\ppiri}{$p_{\pi}($\ri$)$}
 \newcommand{\tpi}{$\tilde{\pi}$}
-\newcommand{\ppitri}{$p_{$\tpi$}($\ri$)$}
+\newcommand{\ppitri}{$p_{\tilde{\pi}}(R_{\infty})$}
+\newcommand{\ppisri}{$\tilde{p}_{\pi^t}(R_{\infty})$}
+\newcommand{\ppicri}{$p_{\pi^c}(R_{\infty})$}
+% \newcommand{\ppitri}{$p_{$\tpi$}($\ri$)$}
 %%%%%%%%%%
 \newcommand{\hlr}[1]{{\color{red} #1}}
 \newcommand{\hlb}[1]{{\color{blue} #1}}

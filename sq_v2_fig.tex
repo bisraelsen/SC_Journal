@@ -83,11 +83,11 @@
 
         \draw [dotted,opacity=0.5] (-2,0) -- (-2,3);
         \path[<-,draw] (-2,0.5) to[out=120,in=-90] (-9,2) node[](tm) {};
-        \node [color=black,right] at (tm) {$\scriptstyle T\sim(\mu_T,\sigma_T)$};
+        \node [color=black,right] at (tm) {$\scriptstyle \widetilde{\mathcal{R}}^{t}\sim(\mu_t,\sigma_t)$};
 
         \draw [dotted,opacity=0.5] (2.5,0.0) -- (2.5,2);
         \path[<-,draw] (2.5,0.25) to[out=-70,in=90] (8,-1.5) node[](cm) {}; 
-        \node [color=black,left] at (cm) {$\scriptstyle C\sim(\mu_C,\sigma_C)$};
+        \node [color=black,left] at (cm) {$\scriptstyle \mathcal{R}^{c}\sim(\mu_c,\sigma_c)$};
 
         \legend{};
     \end{axis}
@@ -108,7 +108,7 @@
         legend style={at={(-0.5,10)},nodes={scale=0.5, transform shape}},
         legend image post style={scale=0.5}
         ]
-        \addlegendimage{gray,thick}\addlegendentry{Surrogate $\mathcal{M}^*(\mathcal{T})$}
+        \addlegendimage{gray,thick}\addlegendentry{Surrogate $\mathcal{M}^t(\mathcal{T})$}
         \addlegendimage{only marks,mark=*,opacity=0.0,fill=gray,fill opacity=1,mark size=2pt}\addlegendentry{Training Data};
         \addlegendimage{only marks,mark=square*,opacity=0.0,fill=red,fill opacity=0.1,mark size=4pt}\addlegendentry{Trusted};
         \addlegendimage{only marks,mark=square*,opacity=0.0,fill=blue,fill opacity=0.1,mark size=4pt}\addlegendentry{Candidate};

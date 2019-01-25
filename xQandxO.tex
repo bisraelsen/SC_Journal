@@ -1,5 +1,6 @@
 \section{Solver Quality and Outcome Assessment}
 \nisar{todo: remove giant whitespaces from eqs. and figs. }  
+\brett{todo: explain notation up front, i.e. $\tilde{x}$ means approximate, $\hat{x}$ means predicted quantity, \ldots}
 
 \subsection{Outcome Assessment Definition and Calculation} \label{sec:xO}
 An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: \xM~$=+1$ (perfectly known problem/task model), \xI~$= +1$ (perfectly interpreted user task command and reward function $R_k$), \xQ~$=+1$ (optimal policy $\pi$ known and available), and \xP~$=+1$ (task encountered previously). Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution \ppiri{} of achievable cumulative reward values $ $\ri$= \sum_{k=0}^{\infty}R_{k}$ under policy $\pi$.
@@ -20,13 +21,13 @@ The range of UPM/LPM is unbounded (i.e. $(-\infty,+\infty)$)) and so cannot be e
     \begin{figure}[tbp]
         \centering
         \includegraphics[width=0.95\linewidth]{Figures/xO_FullADT.png}
-        \caption{\xO{} assessments for Donut Delivery problem in various environments.}
+        \caption{\xO{} assessments for Donut Delivery problem in various environments. \nisar{for to fix: eq. for UPM/LPM is wrong in pic}}
         \label{fig:xOexample}
     \end{figure}
 
 Fig.~\ref{fig:xOexample} illustrates the resulting value of \xO{} in three different situations. In `Environment (a)' the acceptable reference reward \ris{} is on the far right side of the distribution, and all of the probability mass is left of it, resulting in \xO{}=0. In the other two examples \ris{} is in the middle of the distributions, but due to higher probability mass being left or right \xO{} changes sign. This assessment of the predicted outcomes given the APS the capability to communicate its capabilities and limitations with users.
 
-\section{Solver Quality Definition and Calculation} \label{sec:xQ}
+\subsection{Solver Quality Definition and Calculation} \label{sec:xQ}
 In the context of APS planning, \xQ{} indicates how well a generic solver \solve{} for a planning problem will `perform' on a given task \task{} of class \taskclass{}. This work restricts \taskclass{} to the class of all applicable MDP problems, so that \solve{} is any type of MDP solver  (although the ideas developed here can in principle be easily extended beyond MDPs or planning problems alone).
 
 A formal definition for \xQ{} must make the notion of \solve{}'s `performance' precise to enable some form of quantitative evaluation. For MDPs, any particular task instance \task{} has a corresponding optimal policy $\pi$ which by definition leads to corresponding best achievable total reward. This suggests that a natural performance metric for assessing the competence of a generic solver \solve{} would be some quantitative comparison of the (approximate) policy \tpi{} to $\pi$. Such a `strong' comparison can be done in many ways depending on the application context, e.g. by directly comparing actions taken by the policies in different states of interest, or by comparing the resulting expected total reward distributions or other artifacts of the different policies. 
@@ -51,7 +52,7 @@ Figure~\ref{fig:sq_v3} (left) illustrates some of the key quantities involved in
 The \emph{Hellinger Metric}, \hell{},  is a measure of the distance between two distributions. It is bounded between 0 and 1, where 0 means the distributions are identical. The maximum distance, 1, is achieved when one distribution $P$ assigns zero probability at every point in which another distribution $Q$ assigns probability. \hell{} has different forms based on the type of analytical distributions being compared. For the purposes of calculating \xQ{} from two distributions $P \sim (\mu_1,\sigma_1)$ and $Q\sim(\mu_2,\sigma_2)$ the following form is useful:
 \begin{align}
     \hellmet &= 1-\sqrt{\frac{2\sigma_P\sigma_Q}{\sigma_P^2+\sigma_Q^2}}\exp{\left(-\frac{1}{4}\frac{(\mu_P-\mu_Q)^2}{\sigma_P^2+\sigma_Q^2}\right)} \\
-    \text{q} &= \text{sgn}(\Delta \mu)f^{\alpha}\sqrt{H^{2}(T,C)} \label{eq:q}
+    \text{q} &= \text{sgn}(\Delta \mu)f^{\alpha}\sqrt{H^{2}(\rwdstar,\rwd)} \label{eq:q}
 \end{align}
 Using \hell{} the overlap between the reward distributions \rwdstar{} and \rwd{} can be calculated. $\Delta \mu = \mu_c-\mu_t$, and $f = \Delta \mu/(r_H-r_L)$. The quantities $r_H$ and $r_L$ are largest and smallest $R_{\infty}$ values observed in the \solvestar{} training set. The exponent $\alpha$ is a parameter that affects the influence that $f$ has with respect to \hell. In essence, should the relationship of the effects of $f$ and \hell{} be $1:1$? In practice $\alpha=1$ does not yield desirable results. \hell{} should be more influential on $\text{q}$ as $f$ grows smaller, and less influential as $f$ grows. We have found $\alpha=1/2$ gives results that `make sense'; future work could investigate the `best' value for $\alpha$ via user studies.
     \begin{align}

@@ -29,42 +29,54 @@
 
 %%%%% shortcut commands
 \newcommand{\famsec}{FaMSeC}
-\newcommand{\solve}{$\mathcal{S}^c$}
-\newcommand{\solvestar}{$\mathcal{S}^t$}
-\newcommand{\taskclass}{$c_{\mathcal{T}}$}
-\newcommand{\task}{$\mathcal{T}$}
-\newcommand{\taski}{$\mathcal{T}_i$}
-\newcommand{\taskN}{$\mathcal{T}_N$}
-\newcommand{\rwd}{$\mathcal{R}^c$}
-\newcommand{\rwdstar}{$\mathcal{R}^t$}
-\newcommand{\rwdstari}{$\mathcal{R}^t_i$}
-\newcommand{\rwdstarN}{$\mathcal{R}^t_N$}
-\newcommand{\rwdstarapprox}{$\widetilde{\mathcal{R}}^t$}
-\newcommand{\rwdstariapprox}{$\widetilde{\mathcal{R}}^t_i$}
-\newcommand{\policy}{$\mathcal{\pi}$}
-\newcommand{\policystar}{$\mathcal{\pi}^t$}
-\newcommand{\policyc}{$\mathcal{\pi}^c$}
-\newcommand{\surrogate}{$\mathcal{M}^t(\mathcal{T})$}
-\newcommand{\xQ}{$x_Q$} %solver quality
-\newcommand{\xO}{$x_O$} %outcome assessment
-\newcommand{\xP}{$x_P$} %past performance
-\newcommand{\xI}{$x_I$} %command interpretation
-\newcommand{\xM}{$x_M$} %model validity
-\newcommand{\xSC}{$x_{SC}$=\{\xI,\xM,\xQ,\xO,\xP \}}
-\newcommand{\dkl}{$D_{KL}$}
-\newcommand{\hell}{$H^2$}
-\newcommand{\hellmet}{$\hell(P,Q)$}
-\newcommand{\dmu}{\Delta \mu}
+\newcommand{\solve}{\ensuremath{\mathcal{S}}}
+\newcommand{\solveopt}{\ensuremath{\mathcal{S}^*}}
+\newcommand{\solvecand}{\ensuremath{\mathcal{S}^C}}
+\newcommand{\solvetrust}{\ensuremath{\mathcal{S}^T}}
+\newcommand{\taskclass}{\ensuremath{c_{\mathcal{T}}}}
+\newcommand{\task}{\ensuremath{\mathcal{T}}}
+\newcommand{\taski}{\ensuremath{\mathcal{T}_i}}
+\newcommand{\taskN}{\ensuremath{\mathcal{T}_N}}
+\newcommand{\rwd}{\ensuremath{\mathcal{R}}}
+\newcommand{\rwdopt}{\ensuremath{\mathcal{R}^*}}
+\newcommand{\rwdoptapprox}{\ensuremath{\widetilde{\mathcal{R}}^*}}
+\newcommand{\rwdapprox}{\ensuremath{\widetilde{\mathcal{R}}}}
+\newcommand{\rwdpredicted}{\ensuremath{\hat{\mathcal{R}}}}
+\newcommand{\rwdcand}{\ensuremath{\mathcal{R}^C}}
+\newcommand{\rwdcandsim}{\ensuremath{\widetilde{\mathcal{R}}^C}}
+\newcommand{\rwdtrust}{\ensuremath{\mathcal{R}^T}}
+\newcommand{\rwdtrusti}{\ensuremath{\mathcal{R}^T_i}}
+\newcommand{\rwdtrustN}{\ensuremath{\mathcal{R}^T_N}}
+\newcommand{\rwdtrustpredict}{\ensuremath{\hat{\mathcal{R}}^T}}
+\newcommand{\rwdtrustipredict}{\ensuremath{\hat{\mathcal{R}}^T_i}}
+\newcommand{\policy}{\ensuremath{\mathcal{\pi}}}
+\newcommand{\policyopt}{\ensuremath{\mathcal{\pi^*}}}
+\newcommand{\policytrust}{\ensuremath{\mathcal{\pi}^T}}
+\newcommand{\policycand}{\ensuremath{\mathcal{\pi}^C}}
+\newcommand{\surrogate}{\ensuremath{\mathcal{M}(\mathcal{T})}}
+\newcommand{\xQ}{\ensuremath{x_Q}} %solver quality
+\newcommand{\xO}{\ensuremath{x_O}} %outcome assessment
+\newcommand{\xP}{\ensuremath{x_P}} %past performance
+\newcommand{\xI}{\ensuremath{x_I}} %command interpretation
+\newcommand{\xM}{\ensuremath{x_M}} %model validity
+\newcommand{\xSC}{\ensuremath{x_{SC}}=\{\xI,\xM,\xQ,\xO,\xP \}}
+\newcommand{\dkl}{\ensuremath{D_{KL}}}
+\newcommand{\hell}{\ensuremath{H^2}}
+\newcommand{\hellmet}{\ensuremath{\hell(P,Q)}}
+\newcommand{\dmu}{\ensuremath{\Delta \mu}}
 \def\-{\raisebox{.75pt}{-}} %short negative sign
-\newcommand{\ri}{$R_{\infty}$}
-\newcommand{\ris}{$R^*_{\infty}$}
-\newcommand{\pri}{$p($\ri$)$}
-\newcommand{\ppiri}{$p_{\pi}($\ri$)$}
-\newcommand{\tpi}{$\tilde{\pi}$}
-\newcommand{\ppitri}{$p_{\tilde{\pi}}(R_{\infty})$}
-\newcommand{\ppisri}{$\tilde{p}_{\pi^t}(R_{\infty})$}
-\newcommand{\ppicri}{$p_{\pi^c}(R_{\infty})$}
-% \newcommand{\ppitri}{$p_{$\tpi$}($\ri$)$}
+\newcommand{\ri}{\ensuremath{R_{\infty}}}
+\newcommand{\riref}{\ensuremath{\bar{R}_{\infty}}}
+\newcommand{\pigeneric}{\ensuremath{\pi}}
+\newcommand{\piapprox}{\ensuremath{\tilde{\pi}}}
+\newcommand{\piopt}{\ensuremath{\pi^*}}
+\newcommand{\picand}{\ensuremath{\pi^C}}
+\newcommand{\pitrust}{\ensuremath{\pi^T}}
+\newcommand{\pri}{\ensuremath{p(\ri)}}
+\newcommand{\ppioptri}{\ensuremath{p_{\pi^*}(\ri)}}
+\newcommand{\ppigenericri}{\ensuremath{p_{\tilde{\pi}}(R_{\infty})}}
+\newcommand{\ppitrustpredict}{\ensuremath{\hat{p}_{\pi^T}(R_{\infty})}}
+\newcommand{\ppicand}{\ensuremath{p_{\pi^C}(R_{\infty})}}
 %%%%%%%%%%
 \newcommand{\hlr}[1]{{\color{red} #1}}
 \newcommand{\hlb}[1]{{\color{blue} #1}}

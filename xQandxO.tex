@@ -1,25 +1,6 @@
 \section{Solver Quality and Outcome Assessment}
 \nisar{todo: remove giant whitespaces from eqs. and figs. }  
-\brett{todo: explain notation up front, i.e. $\tilde{x}$ means approximate, $\hat{x}$ means predicted quantity, \ldots}
-
-So: * is for optimal, $\tilde{x}$ is for approximate/simulated, $\hat{x}$ is for `predicted', $\bar{x}$ is for `reference', and the absence of these is for `generic' or `theoretical'. Caligraphic letters are the high-level problem representation?? 
-
-So, let's start a list of the variables, and what they'll be called to be clear:
-\begin{itemize}
-    \item Reward function $R_k$
-    \item $p_{\pi}(R_{\infty})=\mathcal{R}$
-    \item $R_{\infty}=\sum_{k=0}^{\infty}{R_k}$
-    \item optimal policy $\pi^*$
-    \item reference reward $\bar{R}_{\infty}^*$
-    \item generic solver $\mathcal{S}$
-    \item generic task $\mathcal{T}$
-    \item generic task class \taskclass
-    \item Candidate solver needs it's own label, it is not neccesarily `approximate' (necessarily) or `predicted', the same goes for its policy \solvecand{} and \picand
-    \item Same for trusted: \solvetrust{} and \pitrust
-    \item Surrogate model predicts $\hat{\mathcal{R}^T}$ (i.e. predicted rewards distribution of \solvetrust{} from \pitrust
-    \item The candidate reward distribution is from Monte-Carlo so we can use \rwdcand{} for theoretical and \rwdcandsim{} for the Monte-Carlo version
-    \item what are the caligraphic letters for? They are the generic solver, task, model, reward distribution for \xQ. So the $\mathcal{R}$ stems from the policy of $\mathcal{S}$ on task $\mathcal{T}$. I think this makes sense.
-\end{itemize}
+In the following derivations and explanations of \xO{} and \xQ{} the following symbols will be used. We list them here to aid readers: The bar symbol ($\bar{y}$) indicates a reference value, A star ($y^*$) indicates an optimum, the tilde ($\tilde{y}$) symbol indicates an approximate or simulated quantity (i.e. via Monte-Carlo), and the hat ($\^{y}$) symbol indicates a predicted quantify (from a model). Symbols without these modifiers can be considered to be generic or theoretical.
 
 \subsection{Outcome Assessment Definition and Calculation} \label{sec:xO}
 An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: \xM~$=+1$ (perfectly known problem/task model), \xI~$= +1$ (perfectly interpreted user task command and reward function $R_k$), \xQ~$=+1$ (optimal policy \piopt{} known and available), and \xP~$=+1$ (task encountered previously). Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution  $\rwdopt = \ppioptri$ of achievable cumulative reward values $\ri= \sum_{k=0}^{\infty}R_{k}$ under policy \piopt.
@@ -99,6 +80,6 @@ Several numerical experiments are reported in \cite{Israelsen2018-qz} (\brett{th
     \label{fig:sq_thry1}
 \end{figure}
 
-\subsection{Contrast \xQ{} and \xO{} to give some more intuition}
-Let's take a step back from the details to summarize. The factors \xQ{} and \xO{} were defined in Sec.~\ref{sec:self-confidence}. They are subtly different from each other. Perhaps a clarifying analogy can help to give an intuitive sense of the difference between the two. One could informally think of \xQ{} as an indication of the \emph{ability} of an athlete. This is opposed to the athlete's assessment of the desirability of the outcome of a game (\xO). While an athlete may be very capable (high \xQ), the score of the game may be such that the athlete knows that it is nearly impossible to catch up and win the game (low \xO). Conversely, an athlete may not be very capable (low \xQ), and due to being na\"{i}ve has an incorrect assessment of the desirability of the outcome (\xO{} cannot be trusted).
+\subsection{Contrast \xQ{} and \xO{}: Some Intuition}
+The quantities \xQ{} and \xO{} are subtly different from each other. Perhaps a clarifying analogy can help to give an intuitive sense of the difference between the two. One could informally think of \xQ{} as an indication of the \emph{ability} of an athlete. This is opposed to the athlete's assessment of the desirability of the outcome of a game (\xO). While an athlete may be very capable (high \xQ), the score of the game may be such that the athlete knows that it is nearly impossible to catch up and win the game (low \xO). Conversely, an athlete may not be very capable (low \xQ), and due to being na\"{i}ve has an incorrect assessment of the desirability of the outcome (\xO{} cannot be trusted).
 \brett{revisit this at the end}

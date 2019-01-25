@@ -1,7 +1,7 @@
 \section{Experiment Methodology} \label{sec:methodology}
-    Herein results from an experiment to investigate the effects of \xQ{} and \xO{} on users behaviors are presented. In order to do this investigation we designed an Amazon Mechanical Turk experiment where human users acted as dispatch supervisors of the unmanned delivery truck described in Sec.~\ref{sec:donut_delivery}. They key hypothesis is that users who are presented with self-confidence metrics will perform better in the dispatch task which will be reflected in a higher score (discussed in detail in Sec.~\ref{sec:hyp_sec_meas}).
+    In order to investigate the effects of the metrics \xQ{} and \xO{} on user behavior and attitudes an Amazon Mechanical Turk experiment was created. In the experiment human users acted as dispatch supervisors of the unmanned delivery truck described in Sec.~\ref{sec:donut_delivery}. They key hypothesis was that users who were presented with self-confidence metrics would perform better in the dispatch task which would be reflected in a higher score (discussed in more detail below).
 
-    The responsibility of each participant was to decide whether the autonomous delivery vehicle should attempt to make a delivery, or decline the delivery. A successful attempt resulted in +1 point, failure in -1 point, and declining a delivery in -1/4 point. After being trained the participants saw a sequence of 43 different delivery scenarios with varying maps. The experiment was a between-subjects design with 4 conditions. The first condition was the control condition where the users only had the map to use to make decisions. In condition 2 users were presented with \xQ{}, and in condition 3 they were shown \xO. In condition 4 users were given both \xQ{} and \xO. A screenshot of a typical task is shows in Fig.~\ref{fig:screenshot}. Based on feedback from a pilot study the numerical values for \xQ{} and \xP{} were subdivided into regions and converted to words such as `very good' or `bad' as detailed in Tab.~\ref{tab:word_ranges} to help users more easily grasp the scales.
+    The responsibility of each participant was to decide whether the autonomous delivery vehicle should attempt to make a delivery, or decline it. A successful delivery attempt resulted in +1 point, failure in -1 point, and declining a delivery in -1/4 point. After being trained (details included in Appendix~\ref{sec:training} and \ref{sec:comprehension}) each participant saw a sequence of 43 different delivery scenarios (tasks appeared in a randomized order for each participant) with varying maps. A screenshot of a typical task is shown in Fig.~\ref{fig:screenshot}. Based on feedback from a pilot study the numerical values for \xQ{} and \xP{} were subdivided into levels and converted to words such as `very good' or `bad' as detailed in Tab.~\ref{tab:word_ranges} to help users more easily grasp the scales.
 
     \begin{table}[]
         \caption{Natural Language Prompts Used for Metric Values}
@@ -25,20 +25,18 @@
         \label{fig:screenshot}
     \end{figure}
 
-    The total number of participants represented is N=257, with $n=\{63,63,64,65\}$ for conditions 1-4 respectively. The results of two participants were not included because of inability to follow the instructions satisfactorily. Participants were paid a base rate of $\$1.60$ for the Human Intelligence Task (HIT), and were able to get a bonus of up to $\$1.00$ based on their performance. Pilot data indicated that this would be equivalent to approximately \$7-10/hr. In practice the Turkers were quite a bit faster than those in the pilot study, and earned around \$13/hr.
-
-    \subsubsection{Hypotheses, Conditions, and Measures} \label{sec:hyp_cond_meas}
-    \paragraph{Experiment Variables:}
-    The two \famsec{} metrics discussed herein are the experimental variables in this situation, each will be either `present' or `absent'. Therefore this study is a 2(\xQ) $\times$ 2(\xO) design, resulting in 4 conditions:
+    \subsubsection{Conditions, Hypotheses, and Measures} \label{sec:hyp_cond_meas}
+    \paragraph{Experiment Variables}
+    The two \famsec{} metrics discussed herein were the experimental variables in this experiment, each was either `present' or `absent'. Therefore this study was a 2(\xQ) $\times$ 2(\xO) design, resulting in 4 conditions:
 
     \begin{enumerate}[label=\textbf{C\arabic*}]
-        \item (Control): The participant will make decisions based solely on information provided by the visualization of the task. They will still receive feedback about success/failure. \label{itm:C1}
-        \item The participant will make decisions on the same tasks as in the control, but with \xQ{} displayed as well.\label{itm:C2}
-        \item The participant will make decisions on the same tasks as in the control, but with \xO{} as well. \label{itm:C3}
-        \item The participant will make decisions on the same tasks as in the control, but with both \xQ{}, and \xO{} displayed simultaneously. \label{itm:C4}
+        \item (Control): The participant makes decisions with \xQ{} and \xO{} absent. Road map is the only stimulus. Participants received feedback about success/failure. \label{itm:C1}
+        \item Same as \ref{itm:C1} but with \xQ{} present.\label{itm:C2}
+        \item Same as \ref{itm:C1} but with \xO{} present. \label{itm:C3}
+        \item Same as \ref{itm:C1} but with both \xQ{}, and \xO{} present simultaneously. \label{itm:C4}
     \end{enumerate}
 
-    The experiment was designed to investigate three main hypotheses. Generally, the overarching hypotheses is that \xQ{} and \xO{} have significant effects on user behaviors and attitudes towards the UDT, as opposed to when they are not. Given other similar work in the area of trust between humans and technology (surveyed in \cite{Israelsen2017-ym}) there is good reason to believe that this is the case.
+    The experiment was designed to investigate three main hypotheses. Generally, the overarching hypotheses is that \xQ{} and \xO{} have significant effects on user behaviors and trust, as opposed to when they are not. Given other similar work in the area of trust between humans and technology (surveyed in \cite{Israelsen2017-ym}) there is good reason to believe that this is the case.
 
     \begin{enumerate}[label=\textbf{H\arabic*}]
         \item Use of either, or both, FaMSeC metrics (\xQ{} and \xO{}) improves performance of the user-autonomy team on the experimental task when compared to control condition. (i.e. presence of FaMSeC metrics will affect the TRBs of human users) \label{itm:H1}
@@ -46,16 +44,11 @@
         \item Users who are presented with FaMSeC metrics will make decisions about delegation more quickly than those in control condition. (i.e. the presence of FaMSeC will help the user offload some of their workload onto the autonomous system) \label{itm:H3}
     \end{enumerate}
 
-    \paragraph{Measures:}
-    The following measurements were gathered for each participant.
-    \begin{enumerate}[label=\textbf{M\arabic*}]
-        \item Score---cumulative score of user during experimental tasks. Used for \ref{itm:H1}
-        \item Questionnaire Responses---Likert scale responses to survey questions. Used for \ref{itm:H2}
-        \item Average time per task---average time for user to make decision during experimental tasks. Used for \ref{itm:H3}
-    \end{enumerate}
+    \paragraph{Measures}
+    Broadly three measurements were used to investigate the hypotheses. 1) \emph{Score (used for \ref{itm:H1})}: cumulative score of user during experimental tasks (measured in `points' according to the scoring scheme discussed above); 2) \emph{Trust Questionnaire Responses (used for \ref{itm:H2})}: Likert scale responses to survey questions (a set of 8 questions related to trust inspired by \cite{Muir1996-gt}, detailed in Appendix~\ref{sec:survey_questions}); and 3) \emph{Average Time per Task (used for \ref{itm:H3})}: average time for user to make decision during experimental tasks (measured in milliseconds from the appearance of the task until the decision to accept/decline is made).
 
-    \paragraph{Task Set:}
-    \brett{Need to discuss how the task set was chosen here.}
+    \paragraph{Task Set}
+    A pool of 500 possible road-networks were generated with varying N ($N=[8,35]$) and varying transition probability (probability of traveling in the desired direction as opposed to a different direction). These networks are represented as individual dots in Fig.~\ref{fig:tot_set}. Values for \xQ{} and \xO{} were calculated for each network, and the color of each dot in the figure represents whether a single simulated delivery was successful or a failure (with the criteria of success being $\ri >= 0$). The experiment set of 43 tasks is a subset of the pool of 500 road-networks sampled in a pseudo random way in an attempt to avoid clustered samples. Further details regarding the selection of the task set and generation of road networks are included in Appendix~\ref{sec:task_set}.
 
     \begin{figure}[tbp]
         \centering
@@ -78,3 +71,6 @@
         \label{fig:experiment_data}
         \vspace{-0.2cm}
     \end{figure}
+
+    \paragraph{Participants}
+    The total number of participants represented is N=255, with $n=\{63,63,64,65\}$ for conditions 1-4 respectively. The results of two participants were not included because of inability to follow the instructions satisfactorily. Participants were paid a base rate of $\$1.60$ for the Human Intelligence Task (HIT), and were able to get a bonus of up to $\$1.00$ based on their performance. Pilot data indicated that this would be equivalent to approximately \$7-10/hr. In practice the Turkers were quite a bit faster than those in the pilot study, and earned around \$13/hr.

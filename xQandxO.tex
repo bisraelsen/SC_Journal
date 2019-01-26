@@ -1,11 +1,9 @@
-\section{Solver Quality and Outcome Assessment}
-\nisar{todo: remove giant whitespaces from eqs. and figs. }  
-In the following derivations and explanations of \xO{} and \xQ{} the following symbols will be used. We list them here to aid readers: The bar symbol ($\bar{y}$) indicates a reference value, A star ($y^*$) indicates an optimum, the tilde ($\tilde{y}$) symbol indicates an approximate or simulated quantity (i.e. via Monte-Carlo), and the hat ($\^{y}$) symbol indicates a predicted quantify (from a model). Symbols without these modifiers can be considered to be generic or theoretical.
+\nisar{todo: remove giant whitespaces from eqs. and figs. } In the following derivations and explanations of \xO{} and \xQ{}, the following symbols will be used: the bar symbol ($\bar{y}$) indicates a reference value; star ($y^*$) indicates an optimum; tilde ($\tilde{y}$) symbol indicates an approximate or simulated quantity (i.e. via Monte-Carlo); and hat ($\^{y}$) symbol indicates a predicted quantify (i.e. from a surrogate model). Quantities without these modifiers can be considered to be generic or theoretical/true values.
 
 \subsection{Outcome Assessment Definition and Calculation} \label{sec:xO}
-An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: \xM~$=+1$ (perfectly known problem/task model), \xI~$= +1$ (perfectly interpreted user task command and reward function $R_k$), \xQ~$=+1$ (optimal policy \piopt{} known and available), and \xP~$=+1$ (task encountered previously). Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution  $\rwdopt = \ppioptri$ of achievable cumulative reward values $\ri= \sum_{k=0}^{\infty}R_{k}$ under policy \piopt.
+An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: \xM~$=+1$ (perfectly known problem/task model), \xI~$= +1$ (perfectly interpreted user task command and reward function $R_k$), \xQ~$=+1$ (optimal policy \piopt{} known and available), and \xP~$=+1$ (task encountered previously) \nisar{need to rethink using numbers for these here -- suffices to say that we are in boundary conditions where these don't affect \xO{} -- then also need to revisit this in discussion or remark that idea is similar to conditional indep. of factors -- future work will hierarchically relax assumptions...}. Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution  $\rwdopt = \ppioptri$ of achievable \nisar{should be `discounted', by $\gamma$?} cumulative reward values $\ri= \sum_{k=0}^{\infty}R_{k}$ under policy \piopt. \nisar{for me to redo: need to rethink this way of explaining connection to $\rwdopt$..is there a more principled connection via concept of meta-analysis? [refs?] }. 
 
-Intuitively, \rwdopt{} summarizes the landscape of possible outcomes for the APS if it were to apply the policy \piopt{} to carry out its task, and thus provides useful information about the intrinsic difficulty or feasibility of a task beyond just the mean value of \ri{} (which \piopt{} maximizes via an MDP solver). For instance, if a significant portion of the probability mass in \rwdopt{} concentrates around very large negative values, then the task cannot be achieved without a high probability of encountering unfavorable outcomes (even with optimal decision-making). 
+\nisar{should go a bit earlier?} Intuitively, \rwdopt{} summarizes the landscape of possible outcomes for the APS if it were to apply the policy \piopt{} to carry out its task, and thus provides useful information about the intrinsic difficulty or feasibility of a task beyond just the mean value of \ri{} (which \piopt{} maximizes via an MDP solver). For instance, if a significant portion of the probability mass in \rwdopt{} concentrates around very large negative values, then the task cannot be achieved without a high probability of encountering unfavorable outcomes (even with optimal decision-making). 
 
 Along these lines, ref. \cite{Aitken2016-cv} considers several measures of \rwdopt, including the logistically transformed upper partial moment/lower partial moment (UPM/LPM) score given in Eq.~\ref{eq:upm_lpm}, which quantifies how much probability mass lies to the right vs. left of a reference minimally acceptable cumulative reward value \ris{} (e.g. any reward greater than 0 is acceptable).
     \begin{align}
@@ -14,9 +12,9 @@ Along these lines, ref. \cite{Aitken2016-cv} considers several measures of \rwdo
 
 In the Donut Delivery problem, \riref{} is the reward obtained at a user-specified maximum acceptable time to successfully reach the delivery destination. The distribution $p = \rwdoptapprox$ is empirically estimated from Monte Carlo sample simulations of \rwdopt, by applying \piopt{} to the assumed MDP state dynamics model.
 
-The range of UPM/LPM is unbounded (i.e. $(-\infty,+\infty)$)) and so cannot be easily or accurately interpreted by humans. Because of this, \xO{} is a logistically transformed version of UPM/LPM, so that the value lies on the range $[-1,+1]$ (see Eq.~\ref{eq:xO}.
+The range of UPM/LPM is unbounded (i.e. $(-\infty,+\infty)$)) and so cannot be easily or accurately interpreted by humans. Because of this, \xO{} is a logistically transformed, scaled, and shifted version of UPM/LPM, so that the value lies on the range $[-1,+1]$, 
     \begin{align}
-        \xO &= \frac{2}{\left(1+e^{\left(-k\left(\log\left(\frac{UPM}{LPM}\right)\right)\right)}\right) - 1} \label{eq:xO}
+        \xO &= \frac{2}{1+e^{-k\log\left(\frac{UPM}{LPM}\right)}}-1 \label{eq:xO}
     \end{align}
     \begin{figure}[tbp]
         \centering
@@ -24,7 +22,7 @@ The range of UPM/LPM is unbounded (i.e. $(-\infty,+\infty)$)) and so cannot be e
         \caption{\xO{} assessments for Donut Delivery problem in various environments. \nisar{for to fix: eq. for UPM/LPM is wrong in pic}}
         \label{fig:xOexample}
     \end{figure}
-
+\noindent where $k$ is ...\nisar{what is $k$ for?}. 
 Fig.~\ref{fig:xOexample} illustrates the resulting value of \xO{} in three different situations. In `Environment (a)' the acceptable reference reward \ris{} is on the far right side of the distribution, and all of the probability mass is left of it, resulting in $\xO=0$. In the other two examples \ris{} is in the middle of the distributions, but due to higher probability mass being left or right \xO{} changes sign. This assessment of the predicted outcomes given the APS the capability to communicate its capabilities and limitations with users.
 
 \subsection{Solver Quality Definition and Calculation} \label{sec:xQ}

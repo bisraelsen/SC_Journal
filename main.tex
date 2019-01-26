@@ -77,9 +77,12 @@
 \newcommand{\ppigenericri}{\ensuremath{p_{\tilde{\pi}}(R_{\infty})}}
 \newcommand{\ppitrustpredict}{\ensuremath{\hat{p}_{\pi^T}(R_{\infty})}}
 \newcommand{\ppicand}{\ensuremath{p_{\pi^C}(R_{\infty})}}
-\newcommand{\Fratio}[4]{\ensuremath{(F_{#1,#2}=#3,p#4)}}
-\newcommand{\Frations}[4]{\ensuremath{(F_{#1,#2}=#3,ns)}}
+\newcommand{\ps}[1]{\ensuremath{p<#1}}
+\newcommand{\pns}{\ensuremath{p>0.05}}
+\newcommand{\Fratio}[4]{\ensuremath{(F_{#1,#2}=#3,\ps{#4})}}
+\newcommand{\Frations}[3]{\ensuremath{(F_{#1,#2}=#3,\pns{})}}
 \newcommand{\MSD}[2]{\ensuremath{(M=#1,SD=#2)}}
+\newcommand{\CMSD}[3]{\ensuremath{(\text{Condition:~} #1; M=#2,SD=#3)}}
 %%%%%%%%%%
 \newcommand{\hlr}[1]{{\color{red} #1}}
 \newcommand{\hlb}[1]{{\color{blue} #1}}

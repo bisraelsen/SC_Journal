@@ -1,14 +1,15 @@
 \subsection{Self-confidence Factorization} \label{sec:self-confidence}
 
-The core idea behind \famsec{} is to represent and compute self-confidence in terms of functions that score different parts of an autonomous agent's decision-making process, referred to as \emph{self-confidence factors}. The combined set of self-confidence factors provide a meta-analysis of how operations and approximations inherent to the agent's decision-making process are expected to impact it's overall task performance. 
+\famsec{} represents and computes self-confidence through functions that score different parts of an autonomous agent's decision-making process, referred to as \emph{self-confidence factors}. The combined set of self-confidence factors provide a meta-analysis of how operations and approximations inherent to the agent's decision-making process are expected to impact it's overall task performance. 
 As with the self-confidence reporting strategy developed in \cite{Hutchins2015-if}, the factors ideally encode an expert designer's assessment of the reliability and suitability of an autonomous decision-making system for completing a task, accounting for variations and uncertainties in task specification, context, environment, and system implementation. \famsec{}'s novelty is that it allows autonomous decision-makers to automatically generate self-confidence assessments from information that is already available from setting up and solving the task at hand. Thus, unlike \cite{Hutchins2015-if}, human experts are not needed to assign specific self-confidence values a priori for every possible tasking scenario that the decision-maker could encounter. %% (contrast to other self-confidence methods later on -- none which specifically look at decision-making, and \famsec allows different concepts to fall into one umbrella framework...) 
     
     
 \begin{figure}[tbp]
         \centering
-        \includegraphics[width=0.6\linewidth]{Figures/FaMSeC.png}
-        \caption{Factorized Machine Self-Confidence (\famsec) information flow}
+        \includegraphics[width=0.85\linewidth]{Figures/FaMSeC.png}
+        \caption{\famsec{} information flow}
         \label{fig:famsec}
+        \vspace{-0.5 cm}
 \end{figure}
     
 Figure \ref{fig:famsec} illustrates a notional view of \famsec's overall self-confidence scoring mechanism. The self-confidence factors (dashed lines) are derived from core algorithmic decision-making components (white boxes in the `Autonomy' block).  
@@ -37,6 +38,7 @@ Figure \ref{fig:trendsBCs} shows some expected behaviors for the \famsec{} facto
     \includegraphics[width=0.65\linewidth]{Figures/scTrendsBoundaryExample_2generic.png}
     \caption{Notional \famsec{} factor behaviors for Donut Delivery problem. \nisar{try to combine this with \famsec{} block diagram somehow to save space?} }
     \label{fig:trendsBCs}
+    \vspace{-0.5 cm}
 \end{figure}
 
 These expected behaviors for an MDP-based autonomous robot provide a useful starting point for developing formal definitions and computing strategies for specific self-confidence factors that address question (ii). 

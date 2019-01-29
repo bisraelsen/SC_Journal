@@ -1,7 +1,7 @@
 \nisar{todo: remove giant whitespaces from eqs. and figs. } In the following derivations and explanations of \xO{} and \xQ{}, the following symbols will be used: the bar symbol ($\bar{y}$) indicates a reference value\brett{---do we even need bar? I think it is only used for the reference reward\ldots}; star ($y^*$) indicates an optimum; tilde ($\tilde{y}$) symbol indicates an approximate or simulated quantity (i.e. via Monte-Carlo); and hat ($\^{y}$) symbol indicates a predicted quantity (i.e. from a surrogate model). Quantities without these modifiers can be considered to be generic or theoretical/\brett{true--is this the right word?} values.
 
 \subsection{Outcome Assessment Definition and Calculation} \label{sec:xO}
-An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: \xM~$=+1$ (perfectly known problem/task model), \xI~$= +1$ (perfectly interpreted user task command and reward function $R_k$), \xQ~$=+1$ (optimal policy \piopt{} known and available), and \xP~$=+1$ (task encountered previously) \nisar{need to rethink using numbers for these here -- suffices to say that we are in boundary conditions where these don't affect \xO{} -- then also need to revisit this in discussion or remark that idea is similar to conditional indep. of factors -- future work will hierarchically relax assumptions...}. Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution  $\rwdopt = \ppioptri$ of achievable \nisar{should be `discounted', by $\gamma$?} cumulative reward values $\ri= \sum_{k=0}^{\infty}R_{k}$ under policy \piopt. \nisar{for me to redo: need to rethink this way of explaining connection to $\rwdopt$..is there a more principled connection via concept of meta-analysis? [refs?] }. 
+An approach for computing \xO{} was developed in \cite{Aitken2016-cv} for infinite horizon MDPs. First, begin with the following assumptions: $\xM=\xMup$ (perfectly known problem/task model), $\xI= \xIup$ (perfectly interpreted user task command and reward function $R_k$), $\xQ=\xQup$ (optimal policy \piopt{} known and available), and $\xP=\xPup$ (task encountered previously) \nisar{need to rethink using numbers for these here -- suffices to say that we are in boundary conditions where these don't affect \xO{} -- then also need to revisit this in discussion or remark that idea is similar to conditional indep. of factors -- future work will hierarchically relax assumptions...}. Under these conditions, overall self-confidence depends only on \xO{}, which can then be quantified as a measure of the probability distribution  $\rwdopt = \ppioptri$ of achievable \nisar{should be `discounted', by $\gamma$?} cumulative reward values $\ri= \sum_{k=0}^{\infty}R_{k}$ under policy \piopt. \nisar{for me to redo: need to rethink this way of explaining connection to $\rwdopt$..is there a more principled connection via concept of meta-analysis? [refs?] }. 
 
 \nisar{should go a bit earlier?} Intuitively, \rwdopt{} summarizes the landscape of possible outcomes for the APS if it were to apply the policy \piopt{} to carry out its task, and thus provides useful information about the intrinsic difficulty or feasibility of a task beyond just the mean value of \ri{} (which \piopt{} maximizes via an MDP solver). For instance, if a significant portion of the probability mass in \rwdopt{} concentrates around very large negative values, then the task cannot be achieved without a high probability of encountering unfavorable outcomes (even with optimal decision-making). 
 
@@ -36,10 +36,10 @@ At the same time, \xQ{} should account for the expected self-confidence metric t
 A natural starting point for devising a quantitative assessment of \xQ{} according to these desiderata is to again examine how information about \rwdapprox{} (which is already used to form \xO{}) can be analyzed further. 
 Note that \xO{} indirectly depends on \xQ{}, since reliable estimation of \rwdoptapprox{} requires knowing the optimal policy \piopt. But in practice, an MDP-based APS will often employ an approximate policy \piapprox{} instead of the true optimal policy \piopt. In turn, this leads to an estimate \rwdapprox{} of the expected reward distribution which differs from the true \rwdopt{} under the optimal \piopt.
 
-\brett{This segue is important, need to re-check this:} We show next that, if a surrogate model \rwdpredicted{} for \rwdtrust{} can be found when \piopt{} is unknown but some `trusted' \pitrust{} is available (where $\pitrust \approx \piopt$), then a quantitative comparison of the simulated \rwdcandsim{} of a `candidate' solver to the surrogate \rwdpredicted{} leads to a suitable metric for \xQ{} (under the progressively relaxed assumption of \xM{}=+1, \xP{}=+1, and \xI{}=+1).\brett{********}
+\brett{This segue is important, need to re-check this:} We show next that, if a surrogate model \rwdpredicted{} for \rwdtrust{} can be found when \piopt{} is unknown but some `trusted' \pitrust{} is available (where $\pitrust \approx \piopt$), then a quantitative comparison of the simulated \rwdcandsim{} of a `candidate' solver to the surrogate \rwdpredicted{} leads to a suitable metric for \xQ{} (under the progressively relaxed assumption of $\xM=\xMup$, $\xP=\xPup$, and $\xI=\xIup$).\brett{********}
     \begin{figure}[tb]
         \centering
-        \includegraphics[width=0.79\linewidth]{Figures/SQ_AllCombined.png}
+        \includegraphics[width=0.95\linewidth]{Figures/xQ_combined.png}
         \caption{(Left) Key values for computing \xQ, where $x$ is a `feature of interest' for \task or \solve; (right) offline training phase of surrogate \surrogate{} and online calculation of \xQ{}. \brett{fix this figure when we finalize the notation}\nisar{will enlarge}}
         \label{fig:sq_v3}
         \vspace{-0.5cm}
@@ -65,17 +65,17 @@ Similar to Eq.~\ref{eq:upm_lpm} the quantity $q$ is also unbounded above $0$ bec
 Several numerical experiments are reported in \cite{Israelsen2018-qz} (\brett{this isn't anonymous}) to show that \xQ{} performs as expected in different situations. One of them is summarized here for illustrative purposes. Figure~\ref{fig:sq_thry1} illustrates the expected reward (with uncertainty) for a trusted solver \solvetrust{} given a specific, generic, task/solver parameter, as well as that of a `candidate' solver \solvecand. Different points of interest (indicating specific values of the task parameter) are highlighted by a star. The table on the side shows the values of \xQ{} calculated for different cases. At point B the candidate solver has a lower expected reward than the trusted solver and a higher variance than the trusted solver. Intuitively \xQ{} should be less than one. As shown when $r=5$ (i.e. $r_H-r_L=5$, the global reward range is `large') $x_Q=0.667$ which indicates that the candidate solver is marginally less capable than the trusted solver, and when $r=0.05$ then $x_Q=0.002$ indicates that \solvecand{} is much less capable than \solvetrust. At point C, \solvecand{} has higher expected reward than \solvetrust, but a larger variance. Intuitively expect \xQ{} of \solvecand{} to be a little greater than one; in fact when $r=5$, $x_Q=1.095$. As the global reward range $r$ decreases the difference in capability between \solvecand{} and \solvetrust{} increases with $x_Q=1.995$ at $r=0.005$. These calculations indicate that \xQ{} performs as expected.
 \begin{figure}[tbp]
     \centering
-    \begin{subfigure}[c]{0.65\linewidth}
+    \begin{subfigure}[c]{0.60\linewidth}
         \centering
-        \includegraphics[width=0.7\linewidth]{Figures/p1.pdf}
+        \includegraphics[width=0.95\linewidth]{Figures/p1.pdf}
         \vfill
     \end{subfigure}%
     \hfill
-    \begin{subfigure}[t]{0.35\linewidth}
+    \begin{subfigure}[t]{0.40\linewidth}
         \centering
         \includegraphics[width=1.0\linewidth]{Figures/p1_table.pdf}
     \end{subfigure} 
-    \caption{\xQ{} assessments on synthetic \pri{} distributions for \solvetrust{} and \solvecand{}. \nisar{hard to read}}
+    \caption{\xQ{} assessments on synthetic \pri{} distributions for \solvetrust{} and \solvecand{}.}
     \label{fig:sq_thry1}
 \end{figure}
 

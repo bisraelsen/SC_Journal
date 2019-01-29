@@ -48,28 +48,13 @@
     Broadly three measurements were used to investigate the hypotheses. 1) \emph{Score (used for \ref{itm:H1})}: cumulative score of user during experimental tasks (measured in `points' according to the scoring scheme discussed above); 2) \emph{Trust Questionnaire Responses (used for \ref{itm:H2})}: Likert scale responses to survey questions (a set of 8 questions related to trust inspired by \cite{Muir1996-gt}, detailed in Appendix~\ref{sec:survey_questions}); and 3) \emph{Average Time per Task (used for \ref{itm:H3})}: average time for user to make decision during experimental tasks (measured in milliseconds from the appearance of the task until the decision to accept/decline is made).
 
     \noindent \paragraph{Task Set}
-    A pool of 500 possible road-networks were generated with varying N ($N=[8,35]$) and varying transition probability (probability of traveling in the desired direction as opposed to a different direction). These networks are represented as individual dots in Fig.~\ref{fig:tot_set}. Values for \xQ{} and \xO{} were calculated for each network, and the color of each dot in the figure represents whether a single simulated delivery was successful or a failure (with the criteria of success being the obtained reward $ >= 0$). The experiment set of 43 tasks is a subset of the pool of 500 road-networks sampled in a pseudo random way in an attempt to avoid clustered samples. Further details regarding the selection of the task set and generation of road networks are included in Appendix~\ref{sec:task_set}.
+    A pool of 500 possible road-networks were generated with varying N ($N=[8,35]$) and varying transition probability (probability of traveling in the desired direction as opposed to a different direction). The networks that are in the final task set are represented as individual dots in Fig.~\ref{fig:exp_set}. Values for \xQ{} and \xO{} were calculated for each network, and the color of each dot in the figure represents whether a single simulated delivery was successful or a failure (with the criteria of success being the obtained reward $ >= 0$). The experiment set of 43 tasks is a subset of the pool of 500 road-networks sampled in a pseudo random way in an attempt to avoid clustered samples. Further details regarding the selection of the task set and generation of road networks are included in Appendix~\ref{sec:task_set}.
 
     \begin{figure}[tbp]
         \centering
-        \begin{subfigure}[b]{0.80\linewidth}
-            \centering
-            \includegraphics[width=0.9\linewidth]{Figures/xQxO_Plane.pdf}
-            \vfill
-            \caption{Total set of generated networks}
-            \label{fig:tot_set}
-        \end{subfigure}%
-        \\
-        % \hfill
-        \begin{subfigure}[b]{0.80\linewidth}
-            \centering
-            \includegraphics[width=0.9\linewidth]{Figures/xQxO_plane_experiment_set.pdf}
-            \caption{Subset of networks used in the MTurk experiment}
-            \label{fig:exp_set}
-        \end{subfigure} 
-        \caption{Example road networks. UGV starts at yellow, Pursuer beings at red, and the exit is green. \nisar{better to put side by side to save space -- not sure we need both plots? can first go in appendix?}}
-        \label{fig:experiment_data}
-        \vspace{-0.2cm}
+        \includegraphics[width=0.9\linewidth]{Figures/xQxO_plane_experiment_set.pdf}
+        \caption{Subset of networks used in the MTurk experiment}
+        \label{fig:exp_set}
     \end{figure}
 
     \noindent \paragraph{Participants}

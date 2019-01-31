@@ -37,16 +37,34 @@ A natural starting point for devising a quantitative assessment of \xQ{} accordi
 Note that \xO{} indirectly depends on \xQ{}, since reliable estimation of \rwdoptapprox{} requires knowing the optimal policy \piopt. But in practice, an MDP-based APS will often employ an approximate policy \piapprox{} instead of the true optimal policy \piopt. In turn, this leads to an estimate \rwdapprox{} of the expected reward distribution which differs from the true \rwdopt{} under the optimal \piopt.
 
 \brett{This segue is important, need to re-check this:} We show next that, if a surrogate model \rwdpredicted{} for \rwdtrust{} can be found when \piopt{} is unknown but some `trusted' \pitrust{} is available (where $\pitrust \approx \piopt$), then a quantitative comparison of the simulated \rwdcandsim{} of a `candidate' solver to the surrogate \rwdpredicted{} leads to a suitable metric for \xQ{} (under the progressively relaxed assumption of $\xM=\xMup$, $\xP=\xPup$, and $\xI=\xIup$).\brett{********}
-    \begin{figure}[tb]
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Figures/xQ_v2.pdf}
+    \caption{Key values for computing \xQ, where $x$ is a `feature of interest' for \task or \solve.}
+    \label{fig:sq_v3}
+    \vspace{-0.5cm}
+\end{figure}
+
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[c]{0.50\linewidth}
         \centering
-        \includegraphics[width=0.95\linewidth]{Figures/xQ_combined.png}
-        \caption{(Left) Key values for computing \xQ, where $x$ is a `feature of interest' for \task or \solve; (right) offline training phase of surrogate \surrogate{} and online calculation of \xQ{}.
-        \nisar{this figure is impossible to read}
-        %\brett{fix this figure when we finalize the notation}\nisar{will enlarge} 
-        }
-        \label{fig:sq_v3}
-        \vspace{-0.5cm}
-    \end{figure}
+        \includegraphics[width=0.75\linewidth]{Figures/xQ_train.png}
+        \vfill
+        \caption{Offline Training}
+        \label{fig:xQ_train}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[c]{0.50\linewidth}
+        \centering
+        \includegraphics[width=0.75\linewidth]{Figures/xQ_test.png}
+        \caption{Online Deployment}
+        \label{fig:sQ_test}
+    \end{subfigure} 
+    \caption{Depiction of the training phase of the surrogate function \surrogate, and the test, or online deployment, phase where \xQ{} is calculated.}
+    \label{fig:xQ_test_train}
+    \vspace{-0.5cm}
+\end{figure}
 
 A surrogate model \surrogate{}, as shown in Fig.~\ref{fig:sq_v3} (right), can be learned in order to make a prediction \rwdtrustpredict{} of \rwdtrust{} from the `trusted' reference solver \solvetrust{} on task \task{} (ideally \solvetrust{} produces $\policytrust \approx \policy$ or converges to it with unlimited computing resources). The candidate solver \solvecand{} (which produces \policycand) must then be evaluated online with respect to the trusted solver \solvetrust{}. This is done by comparing \rwdtrustpredict{} and $\rwdcandsim= \ppicand$ (the simulated reward distribution of solver \solvecand{} on task \task). 
 

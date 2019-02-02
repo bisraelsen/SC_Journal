@@ -1,7 +1,7 @@
 \section{Experimental User Study} \label{sec:methodology}
-    In order to investigate the effects of the metrics \xQ{} and \xO{} on user behavior and attitudes an Amazon Mechanical Turk experiment was created. In the experiment human users acted as dispatch supervisors of the unmanned delivery truck described in Sec.~\ref{sec:donut_delivery}. They main hypothesis was that users who were presented with self-confidence metrics would perform better in the dispatch task, which would be reflected in a higher score (discussed in more detail below).
+    In order to investigate the effects of the metrics \xQ{} and \xO{} on user behavior and attitudes an Amazon Mechanical Turk experiment was created. In the experiment human users acted as dispatch supervisors of the unmanned delivery truck described in Sec.~\ref{sec:donut_delivery}. The main hypothesis was that users who were presented with self-confidence metrics would perform better in the dispatch task, as reflected by a higher score. %(discussed in more detail below).
 
-    The responsibility of each participant was to decide whether the autonomous delivery vehicle should attempt to make a delivery, or decline it. A successful delivery attempt resulted in +1 point, failure in -1 point, and declining a delivery in -1/4 point. After being trained (details included in Appendix~\ref{sec:training} and \ref{sec:comprehension}) each participant saw a sequence of 43 different delivery scenarios with varying maps (tasks appeared in a randomized order for each participant). Based on feedback from a pilot study the numerical values for \xQ{} and \xO{} were subdivided into levels and converted to words such as `very good' or `bad' as detailed in Tab.~\ref{tab:word_ranges} to help users more easily grasp the scales. a screenshot of the experiment is included in Appendix~\ref{sec:task_set_explanation}.
+    Each participant had to decide whether the autonomous delivery vehicle should attempt to make a delivery, or decline it. A successful delivery attempt resulted in +1 point, failure in -1 point, and declining a delivery in -1/4 point. After being trained (details included in Appendix~\ref{sec:training} and \ref{sec:comprehension}) each participant saw a sequence of 43 different delivery scenarios with varying maps (tasks appeared in a randomized order for each participant). Based on feedback from a pilot study the numerical values for \xQ{} and \xO{} were subdivided into levels and converted to words such as `very good' or `bad' as detailed in Tab.~\ref{tab:word_ranges} to help users more easily grasp the scales. a screenshot of the experiment is included in Appendix~\ref{sec:task_set_explanation}.
 
     \begin{table}[]
         \caption{Natural Language Prompts Used for Metric Values}
@@ -16,6 +16,7 @@
             $(1.00,1.50]$ & Good & \vline & $(0.10,0.50]$ & Good \\
             $(1.50,2.00]$ & Very Good & \vline & $(0.50,1.00]$ & Very Good
         \end{tabular}
+        \vspace{-0.5cm}
     \end{table}
 
     \subsubsection{Conditions, Hypotheses, and Measures} \label{sec:hyp_cond_meas}
@@ -32,9 +33,9 @@
     The experiment was designed to investigate three main hypotheses. Generally, the overarching hypotheses is that \xQ{} and \xO{} have significant effects on user behaviors and trust, as opposed to when they are not. Given other similar work in the area of trust between humans and technology (surveyed in \cite{Israelsen2019-to}) there is good reason to believe that this is the case.
 
     \begin{enumerate}[label=\textbf{H\arabic*}]
-        \item Use of either, or both, FaMSeC metrics (\xQ{} and \xO{}) improves performance of the user-autonomy team on the experimental task when compared to control condition. (i.e. presence of FaMSeC metrics will affect the behaviors of human users) \label{itm:H1}
-        \item Users who are presented with FaMSeC metrics will rate trust of autonomous system more highly than in control condition. (i.e. presence of FaMSeC metrics will affect the self-reported trust of human users) \label{itm:H2}
-        \item Users who are presented with FaMSeC metrics will make decisions about delegation more quickly than those in control condition. (i.e. the presence of FaMSeC will help the user offload some of their workload onto the autonomous system) \label{itm:H3}
+        \item Use of either, or both  of \xQ{}/\xO{} improves performance of the user-autonomy team on the task when compared to \ref{itm:C1} (i.e. presence of FaMSeC metrics will affect the behaviors of human users) \label{itm:H1}
+        \item Users presented with \xQ{}/\xO{} will rate trust of system more highly than in \ref{itm:C1} (i.e. presence of FaMSeC metrics will affect the self-reported trust of human users) \label{itm:H2}
+        \item Users presented with \xQ{}/\xO{} will make delegation decisions more quickly than in \ref{itm:C1} (i.e. the presence of FaMSeC will help the user offload some of their workload onto the autonomous system) \label{itm:H3}
     \end{enumerate}
 
     \noindent \paragraph{Measures}
@@ -43,7 +44,7 @@
     \noindent \paragraph{Task Set and \famsec{} Calculations}
     A pool of 500 possible road-networks were generated with varying N ($N=[8,35]$) and varying transition probability ($p_{trans}=[0.0,1.0]$, probability of traveling in the desired direction as opposed to a different direction). The networks that are in the final task set are represented as individual dots in Fig.~\ref{fig:exp_set}. Values for \xQ{} and \xO{} were calculated for each network, and the color of each dot in the figure represents whether a single simulated delivery was a success or a failure (with the criteria of success being the obtained reward $ >= 0$). The experiment set of 43 tasks is a subset of the pool of 500 road-networks sampled in a pseudo random way in order to avoid clustered samples. Details task set selection and road networks generation are in Appendix~\ref{sec:task_set}. Values of \xQ{} and \xO{} were then calculated offline for each network. 
     For this task, a Monte Carlo Tree search (MCTS) solvers were used for both \solvetrust{} and \solvecand{}, to simulate a `realistic' case where an exact policy is unavailable so that only approximate solvers can be used. 
-    Details for MCTS settings and training \surrogate{} are in [NOT CITED FOR ANONYMITY]. 
+    Details for MCTS settings and training \surrogate{} are in [ANON.]. 
     %\nisar{for me to edit} For this task \solvetrust{} was a Monte-Carlo tree search (MCTS) solver with depth 10 and 1000 iterations; \solvecand{} was an MCTS solver with depth 3. The use of MCTS was to simulate a `realistic' scenario in which an optimal solver is not available but an approximate solver is. The surrogate model \surrogate{} was trained as reported in [NOT CITED FOR ANONYMITY].
 
     % \begin{figure}[tbp]

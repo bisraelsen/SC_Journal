@@ -14,7 +14,7 @@ and cannot be easily interpreted by users, UPM/LPM is logistically transformed, 
     \end{align}
     \begin{figure}[tbp]
         \centering
-        \includegraphics[width=0.95\linewidth]{Figures/xO_EnvsRewardsOnly.png}
+        \includegraphics[width=0.75\linewidth]{Figures/xO_EnvsRewardsOnly.png}
         \caption{\xO{} assessments for different Donut Delivery problems.}
         \label{fig:xOexample}
         \vspace{-0.5 cm}
@@ -23,7 +23,7 @@ and cannot be easily interpreted by users, UPM/LPM is logistically transformed, 
 
 \subsection{Solver Quality Definition and Calculation} \label{sec:xQ}
 %For MDP planning, 
-Recall \xQ{} indicates how well a generic solver \solve{} for a planning problem will `perform' on a given task \task{} of class \taskclass{}. This work restricts \taskclass{} to the class of all applicable MDP problems, so that \solve{} is any type of MDP solver  (although the ideas here can be extended beyond MDPs).
+%Recall \xQ{} indicates how well a generic solver \solve{} for a planning problem will `perform' on a given task \task{} of class \taskclass{}. This work restricts \taskclass{} to the class of all applicable MDP problems, so that \solve{} is any type of MDP solver  (although the ideas here can be extended beyond MDPs).
 
 A formal definition for \xQ{} must make the notion of \solve{}'s `performance' precise to enable some form of quantitative evaluation. For MDPs, any particular task instance \task{} has a corresponding optimal policy \piopt{} which by definition leads to corresponding best achievable total reward. This suggests that a natural performance metric for assessing the competence of a generic solver \solve{} would be some quantitative comparison of the (not necessarily optimal) policy \pigeneric{} to \piopt. Such a `strong' comparison can be done in many ways depending on the application context, e.g. by directly comparing actions taken by the policies in different states of interest, or by comparing the resulting expected total reward distributions or other artifacts of the different policies. 
 But since \piopt{} is usually unavailable (or else \solve{} would not be needed), \xQ{} should also allow for `weak' comparison to other reference `baseline' solvers that yield policies with performance as good as/very close to the true optimal \piopt. This may require comparing two completely different types of solvers (e.g. a deterministic approximation vs. a Monte Carlo approximation), so \xQ{} should also ideally enable comparison across solver classes, as well as assessments of online/anytime solvers (for which complete state coverage and policy convergence may not be possible in large state/action spaces).
@@ -33,12 +33,12 @@ At the same time, \xQ{} should account for the expected self-confidence metric t
 A natural starting point for devising a quantitative assessment of \xQ{} according to these desiderata is to again examine how information about \rwdapprox{} (which is already used to form \xO{}) can be analyzed further. 
 Note that \xO{} indirectly depends on \xQ{}, since reliable estimation of \rwdoptapprox{} requires knowing the optimal policy \piopt. But in practice, an MDP-based APS will often employ an approximate policy \piapprox{} instead of the true optimal policy \piopt. This leads to an estimate \rwdapprox{} of the expected reward distribution which differs from \rwdopt{} under \piopt.
 
-We show next that, if a surrogate model can be learned to predict \rwdtrust{} on different tasks when \piopt{} is unknown but some `trusted' \pitrust{} is available (where $\pitrust \approx \piopt$), then a quantitative comparison of the simulated \rwdcandsim{} of a `candidate' solver to the predicted \rwdtrustpredict{} of the `trusted' solver leads to a suitable metric for \xQ{} (where \xQ{} is no longer considered `perfect' as it was when deriving \xO).
+
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[b]{0.50\linewidth}
         \centering
-        \includegraphics[width=0.75\linewidth]{Figures/xQ_train.png}
+        \includegraphics[width=0.65\linewidth]{Figures/xQ_train.png}
         \vfill
         \caption{Offline Training}
         \label{fig:xQ_train}
@@ -46,7 +46,7 @@ We show next that, if a surrogate model can be learned to predict \rwdtrust{} on
     \hfill
     \begin{subfigure}[b]{0.50\linewidth}
         \centering
-        \includegraphics[width=0.75\linewidth]{Figures/xQ_test.png}
+        \includegraphics[width=0.65\linewidth]{Figures/xQ_test.png}
         \vspace{0.5cm}
         \caption{Online Deployment}
         \label{fig:sQ_test}
@@ -56,10 +56,9 @@ We show next that, if a surrogate model can be learned to predict \rwdtrust{} on
     \vspace{-0.5cm}
 \end{figure}
 
-A surrogate model \surrogate{}, as shown in Fig.~\ref{fig:xQ_test_train}, can be learned in order to make a prediction \rwdtrustpredict{} of \rwdtrust{} from the `trusted' reference solver \solvetrust{} on task \task{} (ideally \solvetrust{} produces $\policytrust \approx \policy$ or converges to it with unlimited computing resources). The candidate solver \solvecand{} (which produces \policycand) must then be evaluated online with respect to the trusted solver \solvetrust{}. This is done by comparing \rwdtrustpredict{} and \rwdcandsim{} (the simulated reward distribution of solver \solvecand{} on task \task). 
-
-This approach is inspired by empirical hardness modeling techniques \cite{Leyton-Brown2009-yr}, which use surrogate models to predict the actual run time of NP-complete problem solvers. 
-Figure~\ref{fig:xQ_v2} illustrates some of the key quantities involved in calculating \xQ{}. The basic premise is to evaluate a scaled version of the Hellinger distance between the difference between \rwdtrust{} and \rwdcand{} while taking into account the overall range of rewards of the trusted solver over many tasks. 
+If a surrogate model \surrogate{} can be learned to predict \rwdtrust{} on different tasks when \piopt{} is unknown but some `trusted' \pitrust{} is available (where $\pitrust \approx \piopt$), then a quantitative comparison of the simulated \rwdcandsim{} of a `candidate' solver to the predicted \rwdtrustpredict{} of the `trusted' solver leads to a suitable metric for \xQ{} (where \xQ{} is no longer considered `perfect' as it was when deriving \xO). 
+As shown in Fig.~\ref{fig:xQ_test_train}, \surrogate{} can be learned to make a prediction \rwdtrustpredict{} of \rwdtrust{} from the `trusted' reference solver \solvetrust{} on task \task{} (ideally \solvetrust{} produces $\policytrust \approx \policy$ or converges to it with unlimited computing resources). The candidate solver \solvecand{} (which produces \policycand) must then be evaluated online with respect to the trusted solver \solvetrust{}. This is done by comparing \rwdtrustpredict{} and \rwdcandsim{} (the simulated reward distribution of solver \solvecand{} on task \task). This approach is inspired by empirical hardness modeling techniques \cite{Leyton-Brown2009-yr}, which use surrogate models to predict the actual run time of NP-complete problem solvers. 
+Figure~\ref{fig:xQ_v2} illustrates some of the key quantities involved in calculating \xQ{}. The idea is to evaluate the `distance' between \rwdtrust{} and \rwdcand{} in relation to the range of rewards for \solvetrust{}. %%over many tasks. 
 \begin{figure}[tb]
     \centering
     \includegraphics[width=0.65\linewidth]{Figures/xQ_v2.pdf}
@@ -67,28 +66,30 @@ Figure~\ref{fig:xQ_v2} illustrates some of the key quantities involved in calcul
     %or \solve \brett{$x$ can't be feature of interest for \solve{} because not all candidate sovers may share that feature}).
     }
     \label{fig:xQ_v2}
-    \vspace{-0.5cm}
+    \vspace{-0.3cm}
 \end{figure}
 
 
 The \emph{Hellinger Metric}, \hell{},  is a measure of the distance between two distributions. It is bounded between 0 and 1, where 0 means the distributions are identical. The maximum distance, 1, is achieved when one distribution $P$ assigns zero probability at every point in which another distribution $Q$ assigns probability. \hell{} has different forms based on the type of analytical distributions being compared. For the purposes of calculating \xQ{} from two distributions $P \sim (\mu_1,\sigma_1)$ and $Q\sim(\mu_2,\sigma_2)$ the following form is useful:
 \begin{align}
-    \hellmet &= 1-\sqrt{\frac{2\sigma_P\sigma_Q}{\sigma_P^2+\sigma_Q^2}}\exp{\left(-\frac{1}{4}\frac{(\mu_P-\mu_Q)^2}{\sigma_P^2+\sigma_Q^2}\right)}
+    \hellmet &= 1-\sqrt{\frac{2\sigma_P\sigma_Q}{\sigma_P^2+\sigma_Q^2}}\exp{\left(-\frac{1}{4}\frac{(\mu_P-\mu_Q)^2}{\sigma_P^2+\sigma_Q^2}\right)},
 \end{align}
-Using \hell{}, the overlap between the reward distributions \rwdtrustpredict{} and \rwdcandsim{} can be calculated, with $\dmu= \mu_c-\mu_t$, and $f = \dmu/(r_H-r_L)$. The quantities $r_H$ and $r_L$ are largest and smallest $R_{\infty}$ values observed in the \surrogate{} training set. The quality of the solver can then be calculated as:
+%Using \hell{}, the overlap between the reward distributions \rwdtrustpredict{} and \rwdcandsim{} can be calculated, with 
+where $\dmu= \mu_c-\mu_t$, and $f = \dmu/(r_H-r_L)$. The quantities $r_H$ and $r_L$ are largest and smallest $R_{\infty}$ values observed in the \surrogate{} training set. The quality of the solver is then
 \begin{align}
     \text{q} &= \text{sgn}(\dmu)f^{\alpha}\sqrt{H^{2}(\rwdtrust,\rwd)} \label{eq:q}
 \end{align}
 \noindent where the exponent $\alpha$ is a parameter that affects the `one-to-oneness' between $f$ and \hell{}. 
 %the influence that $f$ has with respect to \hell (in essence, should the relationship of the effects of $f$ and \hell{} be $1:1$?). 
 %In practice $\alpha=1$ does not yield desirable results. \hell{} should be more influential on $\text{q}$ as $f$ grows smaller, and less influential as $f$ grows. 
-We have found $\alpha=1/2$ gives results that empirically make sense; future work could investigate the `best' value for $\alpha$ via user studies.
-
-Similar to Eq.~\ref{eq:upm_lpm} the quantity $q$ is also unbounded above $0$ because while \hell{} is on the domain $[0,1]$, $f$ is on $[0,\infty)$. Consequently, as with \xO{}, a logistic function is used to keep the reported \xQ{}, shown in Eq.~\ref{eq:xQ}, value within some bounded range and avoid arbitrarily large values that can be confusing to humans. The numerator is 2 so that when $q=0$ (distributions are identical) \xQ{} will be 1. Dividing the quantity $q$ by 5 makes it so that \xQ{} `saturates' at around $\text{q}=\pm1$.
+We have found $\alpha=1/2$ gives results that empirically make sense; future work could investigate the `best' value for $\alpha$ via user studies. 
+%
+%Similar to Eq.~\ref{eq:upm_lpm} the quantity $q$ is also unbounded above $0$ because while \hell{} is on the domain $[0,1]$, $f$ is on $[0,\infty)$. Consequently, 
+As with \xO{}, a logistic function is used to keep \xQ{} bounded, e.g. %and avoid arbitrarily large values that can be confusing to humans
     \begin{align}
-        \xQ &= \frac{2}{1+exp(-\text{q}/5)}\label{eq:xQ}
+        \xQ &= \frac{2}{1+\exp(-\text{q}/5)}\label{eq:xQ}
     \end{align}
-
+so that \xQ=1 when $q=0$ (pdfs identical) and `saturation' occurs around $\text{q}=\pm1$. 
 %\nisar{trim}
 %Several numerical experiments are reported in [NOT CITED FOR ANONYMITY] %\cite{Israelsen2018-qz} 
 %to show that \xQ{} performs as expected in different situations. One of them is summarized here for illustrative purposes. 
@@ -111,6 +112,7 @@ For example, in case B, the candidate solver has a lower expected reward than th
     \end{subfigure}
     \caption{\xQ{} from synthetic \pri{} pdfs for \solvetrust{} and \solvecand{}.}
     \label{fig:sq_thry1}
+    \vspace{-0.5cm}
 \end{figure}
 
 % \subsection{Contrasting \xQ{} and \xO{}: Some Intuition}

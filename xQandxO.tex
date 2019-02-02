@@ -4,13 +4,13 @@ Under these conditions, overall self-confidence depends only on \xO{},  quantifi
 %%\nisar{should go a bit earlier?} 
 Intuitively, \rwdopt{} summarizes the landscape of possible outcomes for the robot if it were to apply the policy \piopt{} to carry out its task, and thus provides useful information about the intrinsic difficulty or feasibility of a task beyond just the mean value of \ri{} (which \piopt{} maximizes via an MDP solver). For instance, if a significant portion of the probability mass in \rwdopt{} concentrates around very large negative values, then the task cannot be achieved without a high probability of encountering unfavorable outcomes (even with optimal decision-making). So, \xO{} could be viewed as a function which explains how well a complex reward distribution maps back to the possible outcomes that would satisfy the user's task demands. Ref. \cite{Aitken2016-cv} recommends the logistically transformed upper partial moment/lower partial moment (UPM/LPM) score from financial engineering \cite{wojt2009portfolio}, 
     \begin{align}
-        \frac{UPM}{LPM}\left(p,\riref\right) &= \frac{\int_{\riref}^{+\infty}zp(z)dz}{\int_{-\infty}^{\riref} zp(z)dz}. \label{eq:upm_lpm}
+        \mbox{UPM/LPM} \left(p,\riref\right) &= \frac{\int_{\riref}^{+\infty}zp(z)dz}{\int_{-\infty}^{\riref} zp(z)dz}. \label{eq:upm_lpm}
     \end{align}
 This quantifies how much probability mass lies to the right vs. left of a reference minimally acceptable cumulative reward value \ris{} (e.g. any reward greater than 0 is acceptable). 
 In the Donut Delivery problem, \riref{} is the reward obtained at a user-specified maximum acceptable time to successfully reach the delivery destination. The distribution $p = \rwdoptapprox$ is empirically estimated from Monte Carlo sample simulations of \rwdopt, by applying \piopt{} to the assumed MDP state dynamics model. Since UPM/LPM range is unbounded %(i.e. $(-\infty,+\infty)$) 
 and cannot be easily interpreted by users, UPM/LPM is logistically transformed, scaled, and shifted to some desired range, e.g. for $[-1,+1]$, 
     \begin{align}
-        \xO &= \frac{2}{1+e^{-\log\left(\frac{UPM}{LPM}\right)}}-1 \label{eq:xO}
+        \xO &= \frac{2}{1+e^{-\log\left(\mbox{\tiny UPM/LPM}\right)}}-1 \label{eq:xO}
     \end{align}
     \begin{figure}[tbp]
         \centering
@@ -19,10 +19,11 @@ and cannot be easily interpreted by users, UPM/LPM is logistically transformed, 
         \label{fig:xOexample}
         \vspace{-0.5 cm}
     \end{figure}
-\noindent Fig.~\ref{fig:xOexample} illustrates the resulting value of \xO{} in three different situations. In `Environment (a)' the acceptable reference reward \ris{} is on the far right side of the distribution, and all of the probability mass is left of it, resulting in $\xO=0$. In the other two examples \ris{} is in the middle of the distributions, but due to higher probability mass being left or right \xO{} changes sign. This assessment thus indicates how far a task exceeds/remains in expected competency limits. Though not pursued here, an additional `drill down' analysis could be added to the \xO computation to help users better explore which aspects of the task lead to the observed reward distribution, e.g. by illustrating state trajectory traces for large negative/positive rewards. 
+\noindent Fig.~\ref{fig:xOexample} illustrates the resulting value of \xO{} in three different situations. In `Environment (a)' the acceptable reference reward \ris{} is on the far right side of the distribution, and all of the probability mass is left of it, resulting in $\xO=0$. In the other two examples \ris{} is in the middle of the distributions, but due to higher probability mass being left or right \xO{} changes sign. This assessment thus indicates how far a task exceeds/remains in expected competency limits. 
 
 \subsection{Solver Quality Definition and Calculation} \label{sec:xQ}
-In the context of APS planning, \xQ{} indicates how well a generic solver \solve{} for a planning problem will `perform' on a given task \task{} of class \taskclass{}. This work restricts \taskclass{} to the class of all applicable MDP problems, so that \solve{} is any type of MDP solver  (although the ideas developed here can in principle be easily extended beyond MDPs or planning problems alone).
+%For MDP planning, 
+Recall \xQ{} indicates how well a generic solver \solve{} for a planning problem will `perform' on a given task \task{} of class \taskclass{}. This work restricts \taskclass{} to the class of all applicable MDP problems, so that \solve{} is any type of MDP solver  (although the ideas here can be extended beyond MDPs).
 
 A formal definition for \xQ{} must make the notion of \solve{}'s `performance' precise to enable some form of quantitative evaluation. For MDPs, any particular task instance \task{} has a corresponding optimal policy \piopt{} which by definition leads to corresponding best achievable total reward. This suggests that a natural performance metric for assessing the competence of a generic solver \solve{} would be some quantitative comparison of the (not necessarily optimal) policy \pigeneric{} to \piopt. Such a `strong' comparison can be done in many ways depending on the application context, e.g. by directly comparing actions taken by the policies in different states of interest, or by comparing the resulting expected total reward distributions or other artifacts of the different policies. 
 But since \piopt{} is usually unavailable (or else \solve{} would not be needed), \xQ{} should also allow for `weak' comparison to other reference `baseline' solvers that yield policies with performance as good as/very close to the true optimal \piopt. This may require comparing two completely different types of solvers (e.g. a deterministic approximation vs. a Monte Carlo approximation), so \xQ{} should also ideally enable comparison across solver classes, as well as assessments of online/anytime solvers (for which complete state coverage and policy convergence may not be possible in large state/action spaces).
@@ -50,7 +51,7 @@ We show next that, if a surrogate model can be learned to predict \rwdtrust{} on
         \caption{Online Deployment}
         \label{fig:sQ_test}
     \end{subfigure} 
-    \caption{Training (offline) phase of surrogate  \surrogate, and the test (online) phase where \xQ{} is calculated.}
+    \caption{\xQ{} calculation phases.}
     \label{fig:xQ_test_train}
     \vspace{-0.5cm}
 \end{figure}
@@ -62,7 +63,9 @@ Figure~\ref{fig:xQ_v2} illustrates some of the key quantities involved in calcul
 \begin{figure}[tb]
     \centering
     \includegraphics[width=0.65\linewidth]{Figures/xQ_v2.pdf}
-    \caption{Inputs to \xQ{} ($x$ is `feature of interest' for \task or \solve \brett{$x$ can't be feature of interest for \solve{} because not all candidate sovers may share that feature}).}
+    \caption{Inputs to \xQ{} ($x$ is `feature of interest' for \task). 
+    %or \solve \brett{$x$ can't be feature of interest for \solve{} because not all candidate sovers may share that feature}).
+    }
     \label{fig:xQ_v2}
     \vspace{-0.5cm}
 \end{figure}
@@ -72,20 +75,28 @@ The \emph{Hellinger Metric}, \hell{},  is a measure of the distance between two 
 \begin{align}
     \hellmet &= 1-\sqrt{\frac{2\sigma_P\sigma_Q}{\sigma_P^2+\sigma_Q^2}}\exp{\left(-\frac{1}{4}\frac{(\mu_P-\mu_Q)^2}{\sigma_P^2+\sigma_Q^2}\right)}
 \end{align}
-Using \hell{} the overlap between the reward distributions \rwdtrustpredict{} and \rwdcandsim{} can be calculated. $\dmu= \mu_c-\mu_t$, and $f = \dmu/(r_H-r_L)$. The quantities $r_H$ and $r_L$ are largest and smallest $R_{\infty}$ values observed in the \surrogate{} training set. The quality of the solver can then be calculated as:
+Using \hell{}, the overlap between the reward distributions \rwdtrustpredict{} and \rwdcandsim{} can be calculated, with $\dmu= \mu_c-\mu_t$, and $f = \dmu/(r_H-r_L)$. The quantities $r_H$ and $r_L$ are largest and smallest $R_{\infty}$ values observed in the \surrogate{} training set. The quality of the solver can then be calculated as:
 \begin{align}
     \text{q} &= \text{sgn}(\dmu)f^{\alpha}\sqrt{H^{2}(\rwdtrust,\rwd)} \label{eq:q}
 \end{align}
-\noindent where the exponent $\alpha$ is a parameter that affects the influence that $f$ has with respect to \hell (in essence, should the relationship of the effects of $f$ and \hell{} be $1:1$?). In practice $\alpha=1$ does not yield desirable results. \hell{} should be more influential on $\text{q}$ as $f$ grows smaller, and less influential as $f$ grows. We have found $\alpha=1/2$ gives results that `make sense'; future work could investigate the `best' value for $\alpha$ via user studies.
+\noindent where the exponent $\alpha$ is a parameter that affects the `one-to-oneness' between $f$ and \hell{}. 
+%the influence that $f$ has with respect to \hell (in essence, should the relationship of the effects of $f$ and \hell{} be $1:1$?). 
+%In practice $\alpha=1$ does not yield desirable results. \hell{} should be more influential on $\text{q}$ as $f$ grows smaller, and less influential as $f$ grows. 
+We have found $\alpha=1/2$ gives results that empirically make sense; future work could investigate the `best' value for $\alpha$ via user studies.
 
 Similar to Eq.~\ref{eq:upm_lpm} the quantity $q$ is also unbounded above $0$ because while \hell{} is on the domain $[0,1]$, $f$ is on $[0,\infty)$. Consequently, as with \xO{}, a logistic function is used to keep the reported \xQ{}, shown in Eq.~\ref{eq:xQ}, value within some bounded range and avoid arbitrarily large values that can be confusing to humans. The numerator is 2 so that when $q=0$ (distributions are identical) \xQ{} will be 1. Dividing the quantity $q$ by 5 makes it so that \xQ{} `saturates' at around $\text{q}=\pm1$.
     \begin{align}
         \xQ &= \frac{2}{1+exp(-\text{q}/5)}\label{eq:xQ}
     \end{align}
 
-\nisar{trim}
-Several numerical experiments are reported in [NOT CITED FOR ANONYMITY] %\cite{Israelsen2018-qz} 
-to show that \xQ{} performs as expected in different situations. One of them is summarized here for illustrative purposes. Figure~\ref{fig:sq_thry1} shows the expected reward (with uncertainty) for a trusted solver \solvetrust{} given a specific, generic, task/solver parameter, as well as that of a `candidate' solver \solvecand. Different points of interest (indicating specific values of the task parameter) are highlighted by a star. The table on the side shows the values of \xQ{} calculated for different cases. At point B the candidate solver has a lower expected reward than the trusted solver and a higher variance than the trusted solver. Intuitively \xQ{} should be less than one. As shown when $r=5$ (i.e. $r_H-r_L=5$, the global reward range is `large') $x_Q=0.667$ which indicates that the candidate solver is marginally less capable than the trusted solver, and when $r=0.05$ then $x_Q=0.002$ indicates that \solvecand{} is much less capable than \solvetrust. At point C, \solvecand{} has higher expected reward than \solvetrust, but a larger variance. Intuitively expect \xQ{} of \solvecand{} to be a little greater than one; in fact when $r=5$, $x_Q=1.095$. As the global reward range $r$ decreases the difference in capability between \solvecand{} and \solvetrust{} increases with $x_Q=1.995$ at $r=0.005$. These calculations indicate that \xQ{} performs as expected.
+%\nisar{trim}
+%Several numerical experiments are reported in [NOT CITED FOR ANONYMITY] %\cite{Israelsen2018-qz} 
+%to show that \xQ{} performs as expected in different situations. One of them is summarized here for illustrative purposes. 
+Figure~\ref{fig:sq_thry1} shows an example expected reward distribution as a function of a generic task parameter for some \solvetrust{} and \solvecand{}. %Different points of interest (indicating specific values of the task parameter) are highlighted by a star. 
+The table on the side shows the values of \xQ{} calculated for different cases (stars on the left reward distribution graph). 
+This synthetic example shows that \xQ{} behaves as expected.
+For example, in case B, the candidate solver has a lower expected reward than the trusted solver and a higher variance than the trusted solver. Intuitively \xQ{} should be less than one. As shown when $r=5$ (i.e. $r_H-r_L=5$, the global reward range is `large') $x_Q=0.667$ which indicates that the candidate solver is marginally less capable than the trusted solver, and when $r=0.05$ then $x_Q=0.002$ indicates that \solvecand{} is much less capable than \solvetrust. 
+%At point C, \solvecand{} has higher expected reward than \solvetrust, but a larger variance. Intuitively we expect \xQ{} of \solvecand{} to be a little greater than one; in fact when $r=5$, $x_Q=1.095$. As the global reward range $r$ decreases the difference in capability between \solvecand{} and \solvetrust{} increases with $x_Q=1.995$ at $r=0.005$. These calculations indicate that \xQ{} performs as expected.
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[c]{0.5\linewidth}
